@@ -74,7 +74,20 @@ node_modules/
 .vscode/
 .history/
 
+# Local assistant/tooling state
+.claude/
+.omc/
+
 # 系统特定缓存
 Thumbs.db
 .DS_Store
 ehthumbs.db
+
+# Office/editor temporary files
+~$*
+*.bak
+*.tmp
+*.temp
+
+# 内部改动记录（不随仓库公开）
+codex.md
