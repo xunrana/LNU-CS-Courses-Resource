@@ -1,0 +1,213 @@
+-- Sailors(sid:int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+
+--1.利用CREATE建立租赁(Reserves)表;
+ create table sailors
+ (
+ sid int primary key,
+ sname char([[姓名已脱敏]已脱敏]),
+ ssex char(2),
+ rating int,
+ age int,
+ )
+
+ create table boats
+ (
+ bid char(6) primary key,
+ bname char([[姓名已脱敏]已脱敏]),
+ color char(10),
+ )
+
+ create table reserves
+ (
+ sid int ,
+ bid char(6),
+ primary key(sid,bid),
+ foreign key(sid) references sailors(sid),
+ foreign key(bid) references boats(bid),
+ )
+
+--2. 查询所有姓王的女船员信息;
+select * 
+from sailors
+where sname like '王%'
+
+--3 查询租用过船名称为“克塞号”船的船员编号;
+select distinct sid 
+from reserves,boats 
+where boats.bid=reserves.bid and bname='克塞号' 
+
+--4. 查找租用过船只的船员编号;
+select distinct sid
+from reserves
+
+--5. 查找rating在3-7之间的且年龄小于30的水手编号;
+select sid
+from sailors
+where rating between 3 and 7 and age<30
+
+--6. 查找租用过红船或绿船的水手编号;
+select distinct r.sid
+from sailors s,boats b,reserves r
+where s.sid=r.sid and b.bid=r.bid and (b.color='红' or b.color='绿')
+
+
+
+
+
+
+
+
+
+
+
+-- Sailors(sid:int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+ --利用CREATE建立租赁(Reserves)表;
+ create table sailors
+ (
+ sid int primary key,
+ sname char([[姓名已脱敏]已脱敏]),
+ ssex char(2),
+ rating int,
+ age int,
+ )
+
+ create table boats
+ (
+ bid char(6) primary key,
+ bname char([[姓名已脱敏]已脱敏]),
+ color char(10),
+ )
+
+ create table reserves
+ (
+ sid int ,
+ bid char(6),
+ primary key(sid,bid),
+ foreign key(sid) references sailors(sid),
+ foreign key(bid) references boats(bid),
+ )
+
+ 
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--2. 查询所有姓王的女船员信息;
+
+select * 
+from sailors
+where sname like '王%'
+
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--3 查询租用过船名称为“克塞号”船的船员编号;
+select distinct sid 
+from reserves,boats 
+where boats.bid=reserves.bid and bname='克塞号' 
+
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) ) 
+--【 租赁(船员编号,船编号,日期) 】
+--4. 查找租用过船只的船员编号;
+select distinct sid
+from reserves
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--5. 查找rating在3-7之间的且年龄小于30的水手编号;
+select sid
+from sailors
+where rating between 3 and 7 and age<30
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--6. 查找租用过红船或绿船的水手编号;
+select distinct r.sid
+from sailors s,boats b,reserves r
+where s.sid=r.sid and b.bid=r.bid and (b.color='红' or b.color='绿')
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--7. 查找最年长的水手的年龄和名字;
+select sname,age
+from sailors
+where age=max(select )
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--8.查找18岁以上水手中,对于每个rating级别中最少有两个水手以上的组中最年轻水手的年龄;
+
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--9. 查找每条白色船只被租用的次数;
+
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--10. 删除船员编号为101的船员信息;
+
+
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--11. 把租用了绿色船只的租赁日期改为“11/9/[[姓名已脱敏]已脱敏]21”;
+
+
+-- Sailors(sid: int, sname: char([[姓名已脱敏]已脱敏]),ssex:char(2), rating: int, age: int) 
+-- 【船员(船员编号,[姓名已脱敏],性别,级别,年龄) 】
+-- Boats(bid:char(6), bname: char([[姓名已脱敏]已脱敏]), color: char(10)) 
+-- 【船(船编号,名称,颜色) 】
+-- Reserves(sid: int, bid: char(6), day: date) 
+--【 租赁(船员编号,船编号,日期) 】
+--12. 为级别为“10”的所有船员建立租赁信息的视图。  
+

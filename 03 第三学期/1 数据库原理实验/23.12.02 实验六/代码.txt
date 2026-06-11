@@ -1,0 +1,85 @@
+--1. 在数据库retail中， 创建一个名为countSalesRep的存储过程。 该存储过程用于显示（查询）每个部门有多少销售员。
+create procedure countsalesrep 
+as
+begin
+select d.departname,count(*) as cnt 
+from salesrep s,department d
+where s.departno=d.departno
+group by d.departname
+end
+countsalesrep
+--2. 在数据库retail中， 创建一个名为 totalOne的存储过程。该存储过程用于显示（查询）指定顾客（顾客号）的消费信息（订单号， 商品名， 购买单价，购买数量， 小计）
+create procedure totalone
+@custno char(4)
+as
+begin
+select o.orderno,p.proddescription,ol.purchaseprice,ol.qtypurchased,ol.purchaseprice*ol.qtypurchased as total
+from orders o,orderline ol,product p
+where o.orderno=ol.orderno and p.productno=ol.productno and o.custno=@custno
+end
+totalone '1040'
+--3. 在数据库retail中， 创建一个名为 newCustomer的存储过程。该存储过程将指定的新顾客信息（顾客号， 名， 姓， 信用额度）加入到顾客表里。
+create procedure newcustomer
+@no char(4),
+@fname char([[姓名已脱敏]已脱敏]),
+@lname char([[姓名已脱敏]已脱敏]),
+@balance numeric(8,2)
+as
+begin
+insert into customer(custno,fname,lname,balance)
+values(@no,@fname,@lname,@balance)
+end
+--4. 在数据库retail中， 创建一个名为getBalance的函数。 该函数中， 给定一顾客号，返回该顾客账户余额。
+create function getbalance(@custno char(4))
+returns numeric(8,2)
+as 
+begin 
+     declare @balance numeric(8,2)
+	 set @balance=(select balance from customer where custno=@custno)
+	 return @balance
+end 
+--5. 测试getBalance的函数。
+select dbo.getbalance('1040')
+--6. 在数据库retail中,创建一个名为salesPerformance的函数。该函数可以计算出每位销售员的销售业绩（销售员编号,名,姓,销售业绩）
+create function salesperformance()
+returns table
+as
+return
+     (
+	 select s.salesrepno,salesrepfname,salesreplastname,sum(ol.PurchasePrice*ol.qtypurchased) as salesamount
+	 from salesrep s,orders o,orderline ol
+	 where o.salesrepno=s.salesrepno and o.orderno=ol.orderno 
+	 group by s.salesrepno,salesrepfname,salesreplastname
+	 )
+--7. 测试salesPerformance函数
+select * from salesperformance()
+--8. 在数据库retail中,创建一个名为showCustomer的存储过程。在该存储过程里,声明游标,使用该游标一条一条显示顾客信息（顾客号,名,姓,账户余额）。
+create procedure showcustomer
+as
+begin
+declare c1 cursor
+for select custno,fname,lname,balance from customer
+open c1
+declare @custno char(4)
+declare @fname char([[姓名已脱敏]已脱敏])
+declare @lname char([[姓名已脱敏]已脱敏])
+declare @balance numeric(8,2)
+fetch c1 into @custno,@fname,@lname,@balance
+while @@fetch_status=0
+begin
+     print @custno+' '+@fname+' '+@lname+' '+convert(char,@balance)
+	 fetch c1 into @custno,@fname,@lname,@balance
+end
+close c1
+deallocate c1
+end
+
+
+
+
+--1.存储过程和函数的使用： 创建这些存储过程和函数让我能够更好地组织和重用数据库操作。这种封装让我的代码更清晰，也更易于维护。
+--2.错误处理和容错机制： 在编写代码的过程中，我发现了一些可能出现的错误，这促使我考虑如何处理这些情况。确保系统可以在各种情况下都能稳定运行是至关重要的。
+--3.学习了游标的使用： 使用游标的存储过程让我更了解了如何逐行处理数据库结果集。尽管游标可能影响性能，但它是解决某些问题的有效手段。
+--4.优化数据库查询和性能提升： 我开始思考如何通过优化查询来提高数据库性能。连接表、筛选数据、使用聚合函数等技巧都可以帮助我更高效地操作数据库。
+--5.数据库编程技能的提升： 通过这次实验，我对数据库编程的理解更深入了。这些技能不仅仅局限于特定的SQL语法，更多地是关于如何更好地管理和利用数据库。
+--总的来说，这次实验不仅让我学会了数据库编程的基础知识，还培养了我处理错误、优化查询、组织代码的能力。这些技能对我的工作和未来的学习都非常有帮助。

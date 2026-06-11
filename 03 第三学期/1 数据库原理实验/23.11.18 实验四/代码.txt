@@ -1,0 +1,137 @@
+--Retail Database Table Structure
+--零售数据库表结构
+--Customer( CustNO, FName, LName, Street, Suburb, Postcode, Balance)
+--　顾客 （顾客号，名，姓，街道，城市，邮政编码，余额）
+--Department( DepartNO, DepartName)
+--　部门（部门号，部门名）
+--SalesRep( SalesRepNO, SalesRepLastName, SalesRepFName, DepartNOfk)
+--　销售代表 （销售代表号，姓，名，部门号）
+--Order( OrderNO, CustNOfk, OrdDate, SalesRepNOfk, OrdStatus)
+--　订单（订单号，顾客号，订单日期，销售代表号，订单状态）
+--OrderLine( OrderNO fk, ProductNOfk, QtyPurchased, PurchasePrice)
+--　订单明细（订单号，商品号，购买数量，销售价格）
+--Product( ProductNO, ProdDescription,QtyOnHand, UnitPrice)
+--商品（商品号，商品名，库存量，单价）
+--numofOrders(CustNO, Fname, Lname, numberofOrders)
+--顾客订单数（顾客号，名字，姓，订单数）
+--totalSale(SalesRepNO, Fname, Lname, total)
+--销售总量（销售代表编号，名字，姓，销售总额）
+--题目：
+--1.新增一个部门， 部门信息为部门编号07，部门名称为TECH
+insert into department
+values('07','TECH')
+select * from department
+--2.新来一名顾客，顾客号为[[姓名已脱敏]已脱敏]01，名字为Robert(名) Bill（姓），余额为1000
+insert into customer(custno,fname,lname,balance)
+values('[[姓名已脱敏]已脱敏]01','Robert','Bill',1000.00)
+select * from customer
+--3.将每个顾客的订单数，保存到numofOrders表里。
+insert into numoforders
+select o.custno,fname,lname,count(*)
+from orders o,customer c
+where o.custno=c.custno
+group by o.custno,fname,lname
+select * from numoforders
+--4.将每个销售代表的总销售金额保存到totalSale表里。
+insert into totalsale
+select o.salesrepno,salesreplastname,salesrepfname,sum(qtypurchased*purchaseprice)
+from orderline ol,orders o,salesrep s
+where ol.orderno=o.orderno and s.salesrepno=o.salesrepno
+group by o.salesrepno,salesreplastname,salesrepfname
+select * from totalsale
+--5.将每个商品单价上调5%。 
+update product 
+set unitprice=unitprice*1.05
+select * from product
+--6.把购买laser Printer的顾客的余额加100元
+update customer
+set balance=balance+100
+where custno in 
+(
+select custno
+from orders o,orderline ol,product p
+where o.orderno=ol.orderno and ol.productno=p.productno and proddescription='laser Printer'
+)
+select * from customer
+--7.订单数超过2的商品的单价上调5%
+update product
+set unitprice=unitprice*1.05
+where productno in
+(
+select productno
+from orders o,orderline ol
+where o.orderno=ol.orderno
+group by productno
+having count(*)>2
+)
+select * from product
+--8.根据下图,对相关表进行相应处理.
+insert into orders
+values ('12900','2567','8/9/[[姓名已脱敏]已脱敏]15', null, null);
+insert into orderline values('12900','AX12',5,[[姓名已脱敏]已脱敏].00)
+insert into orderline values('12900','BT04',9,129.00)
+update customer
+set balance=balance-1261 
+where custno='2567'
+update product
+set qtyonhand=qtyonhand-5
+where productno='AX12'
+update product
+set qtyonhand=qtyonhand-9
+where productno='BT04'
+update numoforders
+set numberoforders=numberoforders+1
+where custno='2567'
+--9.创建视图V1，显示顾客和他们购买商品的信息。(要求有个顾客[姓名已脱敏],购买商品日期,商品名,数量,单价,小计(数量*单价)
+create view V1 as
+select fname,lname,orddate,proddescription,qtypurchased,purchaseprice,qtypurchased*purchaseprice as totalprice
+from customer c,orders o,orderline ol,product p
+where c.custno=o.custno and o.orderno=ol.orderno and p.productno =ol.productno
+select * from V1
+--10.创建视图V2，显示销售代表（名）及其所在的部门名
+create view V2 as
+select salesrepfname,departname
+from salesrep s,department d
+where s.departno=d.departno
+select * from V2
+--11.创建视图V3， 显示销售代表([姓名已脱敏])， 部门名和他们的业绩（有多少订单）
+create view V3 as
+select salesreplastname,salesrepfname,departname,count(*) as sumorders
+from salesrep s,department d,orders o
+where s.departno=d.departno and s.salesrepno=o.salesrepno
+group by salesreplastname,salesrepfname,departname
+select * from V3
+--12.在V1视图上， 查询每名顾客一共消费的了多少钱， 显示顾客名，总消费金额
+select fname,lname,sum(totalprice) as sumcost
+from V1
+group by fname,lname
+--13.在V3视图上，查询订单数超过3个的销售代表[姓名已脱敏]，部门，订单数量
+select salesreplastname,salesrepfname,departname,sumorders
+from V3
+where sumorders>3
+--14.删除Tech部门
+delete from department
+where departname='Tech'
+--15.把订单数为零的销售代表消息全部删除
+delete from salesrep
+where salesrepno in
+(
+select s.salesrepno
+from salesrep s,orders o
+where s.salesrepno=o.salesrepno
+group by s.salesrepno
+having count(*)=0
+)
+--16.在商品表上按商品名升序建立索引
+create index index_product_proddescription on product(proddescription asc)
+--17.在销售代表表上按部门号升序建立索引， 如果部门号相同， 按[姓名已脱敏]降序建立索引。
+create index index_salesreplastname on salesrep(departno asc,salesreplastname desc,salesrepfname desc)
+
+
+
+1.掌握了SQL语言中的多种操作，比如INSERT、UPDATE等，能够有效地新增、更新和删除数据，保持数据库的准确性和实效性。
+2.学会使用聚合函数和GROUP BY来对数据进行统计分析，比如计算订单数、销售总额等。
+3.通过使用条件语句和多表关联，能够根据特定条件查询数据，实现更精确的数据检索。
+4.了解了如何创建视图来展示特定信息，这有助于简化复杂查询和数据展示，提高工作效率。
+5.了解了索引的重要性以及如何创建索引来加速数据检索，提高数据库的查询性能。
+6.更好地理解了数据库事务处理的重要性，特别是在涉及跨多个表的操作时，保证数据的完整性和一致性是必要的。多表更新和同步、数据关联与引用完整性。

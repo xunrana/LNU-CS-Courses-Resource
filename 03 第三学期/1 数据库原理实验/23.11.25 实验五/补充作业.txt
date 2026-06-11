@@ -1,0 +1,72 @@
+--用SQL完成以下各项操作:
+--供应商表（S）：
+--SNO（供应商编号，主键，字符型，长度为2）
+--SNAME（供应商名称，字符串型，长度为[[姓名已脱敏]已脱敏]）
+--STATUS（状态，整型）
+--CITY（城市，字符串型，长度为[[姓名已脱敏]已脱敏]）
+--零件表（P）：
+--PNO（零件编号，主键，字符型，长度为2）
+--PNAME（零件名称，字符串型，长度为50）
+--COLOR（颜色，字符型，长度为2）
+--WEIGHT（重量，整型）
+--工程师表（J）：
+--JNO（工程师编号，主键，字符型，长度为2）
+--JNAME（工程师名称，字符串型，长度为[[姓名已脱敏]已脱敏]）
+--CITY（城市，字符串型，长度为[[姓名已脱敏]已脱敏]）
+
+--供应关系表（SPJ）：
+--sno（供应商编号，字符型，长度为2，外键，引用供应商表的sno字段）
+--pno（零件编号，字符型，长度为2，外键，引用零件表的pno字段）
+--jno（工程师编号，字符型，长度为2，外键，引用工程师表的jno字段）
+--qty（数量，整型）
+--主键由sno、pno、jno构成
+select * from s
+select * from p
+select * from j
+select * from spj
+--(1)找出所有供应商的[姓名已脱敏]和所在城市;
+select jname,city
+from j
+--(2)找出所有零件的名称,颜色﹑重量﹔
+select pname,color,weight
+from p
+--(3)找出使用供应商S1所供应零件的工程号码;
+select distinct jno
+from spj
+where sno='S1'
+--(4)找出工程项目J2使用的各种零件的名称及其数量﹔
+select pname,spj.qty
+from p,spj
+where p.pno=spj.pno and jno='J2'
+--(5)找出上海厂商供应的所有零件号码;
+select distinct pno
+from spj,s
+where spj.sno=s.sno and s.city='上海' 
+--(6)找出使用上海产的零件的工程名称;
+select jname
+from spj,j,s
+where spj.jno=j.jno and s.sno=spj.sno and s.city='上海'
+--(7)找出没有使用天津产的零件的工程号码;
+select distinct jno
+from spj
+where jno not in(select jno from spj,s where spj.sno=s.sno and s.city='天津') 
+--(8)把全部红色零件的颜色改成蓝色;
+update p
+set color='蓝' 
+where color='红'
+--(9)由S5供给J4的零件P6改为由S3供应,请作必要的修改;
+update spj
+set sno='S3'
+where sno='S5' and jno='J4' and pno='P6'
+--(10)从供应商关系中删除S2的记录,并从供应情况关系中删除相应的记录;
+delete from s where sno='S2'
+delete from spj where sno='S2'
+--(11)请将(S2,J6,P4,[[姓名已脱敏]已脱敏]0）插入供应情况关系；
+insert into spj(sno,jno,pno,qty) 
+values('S2','J6','P4',[[姓名已脱敏]已脱敏]0)
+--(12)将供应商表添加一列，列名为电话；
+alter table s
+add telephone varchar([[姓名已脱敏]已脱敏])
+--(13)为P表添加约束， color取值为红、绿、蓝、白之一。
+alter table p
+add constraint c1 check(color in('红','绿','蓝','白'))

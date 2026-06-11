@@ -1,0 +1,118 @@
+--数据库 Construction
+--tblCategory(CategoryNo ,categoryName )
+--类型（类型编号，类型名字） 
+--tblDepartment(DepartNo ,DepartName ,ManagerNo )
+--部门（部门编号， 部门名字， 经理编号）
+--tblEmployee(EmpNo , Surname , FName  ,sex ,Room , Phone ,Salary  ,DepartNo )
+--职工（职工编号， 姓， 名， 性别， 办公室，电话， 工资，部门编号）
+--tblProject(ProjectNo , ProjectTitle , StartDate , EndDate , SupervisorNo , CategoryNo , TotalCost )
+--项目（项目编号， 项目名，开始日期，结束日期，管理者编号，类型编号，总成本）
+--tblAssigned(ProjectNo  ,EmpNo ,Duration ,ChargeRate)
+--参与（项目编号， 职工编号， 参与天数，每天补助）
+
+--1. 查询Anne Smith 的办公室号和电话 
+select room,phone
+from tblemployee
+where surname='Smith' and fname='Anne';--外国名都是先名后姓
+
+--2. 查询总成本在[[姓名已脱敏]已脱敏]00000和5000000之间的项目名称，开始日期和结束日期
+select projecttitle,startdate,enddate
+from tblproject 
+where totalcost between [[姓名已脱敏]已脱敏]00000 and 5000000;
+
+--3. 查询办公室是K123，L123和M777的职工[姓名已脱敏]和电话
+select surname,fname,phone
+from tblemployee
+where room in('K123','L123','M777');
+
+--4. 查询项目编号以F开头的项目信息
+select *
+from tblproject
+where projectno like 'F%'
+
+--5. 查询项目编号以F或M开头的项目编号和名称
+select projectno,projecttitle
+from tblproject
+where projectno like 'F%' or projectno like 'M%'
+
+--6. 查询还没有完成项目的项目编号， 项目名称， 开始日期和总成本
+select projectno,projecttitle,startdate,totalcost
+from tblproject
+where enddate is null
+
+--7. 查询每位职工工作的部门名称
+select surname,fname,departname
+from tblemployee e,tbldepartment d
+where e.departno=d.departno
+
+--8. 查询每个部门的经理[姓名已脱敏]
+select departname,surname,fname
+from tblemployee e,tbldepartment d
+where managerno=empno
+
+--9. 查询每个职工[姓名已脱敏]名，部门名，所做的项目名
+select surname,fname,departname,projecttitle
+from tblemployee e,tbldepartment d,tblproject p,tblassigned a
+where e.departno=d.departno and e.empno=a.empno and a.projectno=p.projectno
+
+--10. 查询做过总成本超过100万项目的职工[姓名已脱敏]
+select surname,fname
+from tblemployee
+where empno in(
+select distinct empno
+from tblassigned a,tblproject p
+where a.projectno=p.projectno and p.totalcost>1000000
+)
+
+SELECT DistINct surname, fname
+FROM tblEmployee e,  tblAssigned a, tblProject p
+WHERE e.empNo=a.empNo AND a.projectNo=p.projectNo 
+      AND totalCost > 1000000;
+
+
+
+--11. 查询工作部门是ABC的女职工[姓名已脱敏]
+select surname,fname
+from tblemployee e,tbldepartment d
+where e.departno=d.departno and d.departname='ABC' and e.sex='F'
+
+--12. 查询每个职工（职工名）做个几个项目？
+select surname,fname,count(*) as cnt
+from tblemployee e,tblassigned a
+where a.empno=e.empno
+group by surname,fname
+
+--13. 查询每个部门（部门名）的平均工资
+select departname,avg(salary) as avgsalary
+from tblemployee e,tbldepartment d
+where d.departno=e.departno
+group by departname,departno
+--加上departno吧
+
+--14. 查询已经完成的项目名称。
+select projecttitle
+from tblproject 
+where enddate is not null
+
+--15. 查询参加开发的人员超过3人的项目名称、起止时间
+select projecttitle,startdate,enddate
+from tblassigned a,tblproject p
+where a.projectno=p.projectno
+group by projecttitle,startdate,enddate 
+having count(*)>3
+
+--16. 查询在ABC部门工作且做过项目的职工[姓名已脱敏]
+select distinct surname,fname
+from tblemployee e,tbldepartment d,tblassigned a
+where a.empno=e.empno and e.departno=d.departno and d.departname='ABC'
+
+--17. 查询没有做过项目的员工[姓名已脱敏]
+select surname,fname
+from tblemployee e
+where empno not in (select empno from tblassigned)
+
+
+--18. 查询每种类型项目的成本总和
+select categoryno,sum(totalcost) as catesum
+from tblproject 
+group by categoryno

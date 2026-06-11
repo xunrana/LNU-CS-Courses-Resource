@@ -1,0 +1,22 @@
+--department(dno,  dname)
+--[部门（部门号， 部门名）]
+--Teacher(tno,   tname,   title,  dno,   salary,   deduction)
+--[教师（教师号，[姓名已脱敏]，职称，部门号，应发工资，扣除项）]
+
+--1.建表department， 要求部门号为主码， 部门名非空唯一
+create table department
+(
+dno char([[姓名已脱敏]已脱敏]) primary key,
+dname varchar(100) unique not null
+)
+--2.建表teacher， 要求教师号做主码， 部门号为外码，职称包括教授，副教授，讲师和助教， 实发工资不低于3000元。
+create table teacher
+(
+tno char([[姓名已脱敏]已脱敏]) primary key,
+tname varchar(100),
+title varchar([[姓名已脱敏]已脱敏]) check(title in('教授', '副教授', '讲师', '助教')),
+dno char([[姓名已脱敏]已脱敏]),
+salary money check(salary>=3000),
+deduction money,
+foreign key(dno) references department(dno)
+)

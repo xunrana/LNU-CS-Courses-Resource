@@ -1,0 +1,157 @@
+--根据给定数据库，做如下查询
+--student(sno, sname, sex, sbirthday, sdept, class，supervisorNo)
+--学生（[姓名已脱敏]， [姓名已脱敏]， 性别， 生日， 所在系， 班级， 班主任教师号）
+--teacher(tno, tname, sex, rating, salary)
+--教师（教师号， [姓名已脱敏]， 性别， 职称， 工资）
+--course(cno, cname, credit, tno)
+--课程（课程号， 课程名， 学分， 教师号）
+--sc(sno, cno, grade)
+--选课（[姓名已脱敏]，课程号， 成绩）
+
+--1.查询所有信息系姓刘同学的信息。
+select *
+from student
+where sdept='cs' and sname like '刘%'
+
+--2.查询1999年和[[姓名已脱敏]已脱敏]00年出生的学生[姓名已脱敏]和所在系
+select sname,sdept
+from student
+where year(sbirthday) in (1999,[[姓名已脱敏]已脱敏]00)
+--where year(sbirthday) between 1999 and [[姓名已脱敏]已脱敏]00
+
+--3.查询选修操作系统学生的名字和成绩
+select sname,grade
+from student s,sc,course c
+where s.sno=sc.sno and sc.cno=c.cno and c.cname='操作系统'
+
+--4.查询选修李诚老师所教课程的学生[姓名已脱敏]， [姓名已脱敏]和所在系
+select distinct sc.sno,sname,sdept
+from student s,course c,teacher t,sc
+where c.tno=t.tno and t.tname='李诚' and sc.cno=c.cno and sc.sno=s.sno
+
+--5.查询选修操作系统成绩超过90分学生的[姓名已脱敏]，所在系和成绩，按成绩降序排列
+select sname,sdept,grade
+from student s,sc,course c
+where c.cname='操作系统'and sc.cno=c.cno and sc.sno=s.sno and grade>90 
+order by grade desc
+
+--6.查询没有选修操作系统的学生[姓名已脱敏]和[姓名已脱敏]
+select sno,sname
+from student
+where sno not in(
+select sno
+from course c,sc
+where sc.cno=c.cno and cname='操作系统'
+)
+
+--7.查询每名学生已选修的学分， 查询结果要求显示学生[姓名已脱敏]和总学分
+select sname,sum(credit) as sumcredit
+from student s,course c,sc
+where s.sno=sc.sno and c.cno=sc.cno
+group by sname,s.sno
+
+--8.查询每门课程已选修的人数， 查询结果要求显示课程名和选课人数
+select cname,count(sc.sno) as cnt
+from sc,student s,course c
+where sc.sno=s.sno and sc.cno=c.cno 
+group by c.cno,cname
+
+--9.查询操作系统成绩最高的学生[姓名已脱敏]和所在系
+select sname,sdept
+from student s
+where sno in (select sno
+              from sc,course c
+              where sc.cno=c.cno and cname='操作系统' and grade in ( select max(grade) from course c,sc where sc.cno=c.cno and cname='操作系统' )               
+              )
+
+--10.查询选课人数超过3人的课程名
+select cname
+from sc,course c
+where sc.cno=c.cno
+group by c.cno,cname
+having count(sc.cno)>3
+
+--有点难度的题：
+--student(sno, sname, sex, sbirthday, sdept, class，supervisorNo)
+--学生（[姓名已脱敏]， [姓名已脱敏]， 性别， 生日， 所在系， 班级， 班主任教师号）
+--teacher(tno, tname, sex, rating, salary)
+--教师（教师号， [姓名已脱敏]， 性别， 职称， 工资）
+--course(cno, cname, credit, tno)
+--课程（课程号， 课程名， 学分， 教师号）
+--sc(sno, cno, grade)
+--选课（[姓名已脱敏]，课程号， 成绩）
+--根据给定数据库，做如下查询
+--student(sno, sname, sex, sbirthday, sdept, class，supervisorNo)
+--学生（[姓名已脱敏]， [姓名已脱敏]， 性别， 生日， 所在系， 班级， 班主任教师号）
+--teacher(tno, tname, sex, rating, salary)
+--教师（教师号， [姓名已脱敏]， 性别， 职称， 工资）
+--course(cno, cname, credit, tno)
+--课程（课程号， 课程名， 学分， 教师号）
+--sc(sno, cno, grade)
+--选课（[姓名已脱敏]，课程号， 成绩）
+--1.查询每个系每个班班主任[姓名已脱敏]，职称
+select sdept,class,tname,rating
+from teacher t,student s
+where tno in (select distinct supervisorno from student) and tno=supervisorno   
+--2.查询出每门课都大于80 分的学生[姓名已脱敏]，[姓名已脱敏]
+select sno,sname
+from student
+where sno in(select sno from sc group by sno having min(grade)>80)
+--3.查询平均成绩高于80分的同学的[姓名已脱敏]和平均成绩
+select sno,avg(grade) as avggrade
+from sc
+group by sno
+having avg(grade)>80
+--4.查询所有同学的[姓名已脱敏]、[姓名已脱敏]、选课数、总成绩， 按总成绩降序排序， 如果总成绩相同， 按选课数降序排序。
+select s.sno,sname,count(*) as ccnt,sum(grade) as sumgrade
+from sc,student s
+where s.sno=sc.sno
+group by s.sno,s.sname
+--5.查询没有学过“李诚”老师课的同学的[姓名已脱敏]、[姓名已脱敏]
+select sno,sname
+from student 
+where sno not in(select sno from sc,course c where sc.cno=c.cno and tno=(select tno from teacher where tname='李诚'))
+--6.查询“6-166”课程比自己“3-105”课程成绩高的所有学生的[姓名已脱敏]
+select s.sno
+from student s,sc s1,sc s2
+where s1.sno=s.sno and s2.sno=s.sno and s1.cno='6-166' and s2.cno='3-105' and s1.grade>s2.grade
+--7.查询“6-166”课程比自己“3-105”课程成绩高的所有学生， 要求显示的[姓名已脱敏],[姓名已脱敏] 和两门课的成绩
+select s.sno,s.sname,s1.grade as grade_6_166,s2.grade as grade_3_105
+from student s,sc s1,sc s2
+where s1.sno=s.sno and s2.sno=s.sno and s1.cno='6-166' and s2.cno='3-105' and s1.grade>s2.grade
+--8.查询学过“6-166”并且也学过“3-245””课程的同学的[姓名已脱敏]、[姓名已脱敏]
+select s.sno,sname
+from student s,sc s1,sc s2
+where s.sno=s1.sno and s.sno=s2.sno and s1.cno='6-166' and s2.cno='3-245'
+--9.查询学过“3-245”但没有学过“6-166”课程的同学的[姓名已脱敏]、[姓名已脱敏]
+select s.sno,sname
+from student s,sc s1
+where s.sno=s1.sno and s1.cno='3-245' and s.sno not in(select sno from sc where cno='6-166')
+--10.查询学过“李诚”老师所教的所有课的同学的[姓名已脱敏]、[姓名已脱敏]
+select s.sno,s.sname
+from student s
+where s.sno in
+(
+select sc.sno
+from sc,course c
+where sc.cno=c.cno and tno in(select tno from teacher where tname='李诚')
+group by sc.sno
+having count(distinct c.cno)=(select count(*) from course where tno=(select tno from teacher where tname='李诚'))
+)
+--11.查询学了所有课的同学的[姓名已脱敏]、[姓名已脱敏]
+select s.sno, s.sname
+from student s,sc
+where sc.sno=s.sno
+group by s.sno, s.sname
+having count(*)=(select count(*) from course)
+--12.查询没有学全所有课的同学的[姓名已脱敏]、[姓名已脱敏]
+select s.sno, s.sname
+from student s
+where s.sno not in
+(
+select s.sno
+from student s,sc
+where sc.sno=s.sno
+group by s.sno, s.sname
+having count(*)=(select count(*) from course)
+)

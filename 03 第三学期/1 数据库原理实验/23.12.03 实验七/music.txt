@@ -1,0 +1,69 @@
+create database music_library52;
+
+
+create table users (
+    userid int primary key,
+    username varchar(100),
+    email varchar(255),
+    password varchar(255)
+);
+
+create table playlists (
+    playlistid int primary key,
+    title varchar(100),
+    creatorid int,
+    description text,
+	foreign key(creatorid) references users(userid),
+);
+
+
+
+create table countries (
+    countryid int primary key,
+    countryname varchar(50)
+);
+
+create table artists (
+    artistid int primary key,
+    artistname varchar([[姓名已脱敏]已脱敏]),
+    agender varchar(2),check (agender in ('男', '女')),
+    countryid int,
+	foreign key(countryid) references countries(countryid),
+);
+
+
+create table songs (
+    songid int primary key,
+    title varchar([[姓名已脱敏]已脱敏]),
+    artistid int,
+    duration time(3),
+    releasedate date,
+	foreign key(artistid) references artists(artistid), 
+);
+
+create table favorites (
+    favoriteid int primary key,
+    userid int,
+    songid int,
+    addeddate date,
+	foreign key(userid) references users(userid),
+	foreign key(songid) references songs(songid),
+);
+
+--1.找出发布日期在[[姓名已脱敏]已脱敏]22-01-01到[[姓名已脱敏]已脱敏]23-01-01内的歌曲信息：
+SELECT title, releasedate
+FROM songs
+WHERE releasedate BETWEEN '[[姓名已脱敏]已脱敏]22-01-01' AND '[[姓名已脱敏]已脱敏]23-01-01';
+--2.找出所有艺术家来自中国的歌曲数量统计：
+SELECT artists.artistname, COUNT(songs.songid) AS song_count
+FROM artists, songs, countries
+WHERE artists.artistid = songs.artistid
+AND artists.countryid = countries.countryid
+AND countries.countryname = '中国'
+GROUP BY artists.artistname;
+--3.查询用户id1007的播放列表和收藏的歌曲信息：
+SELECT playlists.title AS playlist_title, songs.title AS song_title
+FROM playlists, favorites, songs
+WHERE favorites.userid = 1007
+AND playlists.creatorid = favorites.userid
+AND favorites.songid = songs.songid;

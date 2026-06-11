@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define N 100
+#define OK 1
+#define ERROR -1
+typedef struct{
+    char *elem;
+    int length;
+    int listsize;
+}SqList;
+int Init(SqList *L)
+{
+    L->elem=(char *)malloc(N*sizeof(char));
+    if(!L->elem)  return ERROR;
+    L->length=0;
+    L->listsize=N;
+    return OK;
+}
+void ListPrint(SqList L)
+{
+    printf("%s",L.elem);
+    printf("\n");
+}
+int LastIndexOfString(SqList L,char *s){
+	/*作业题目：
+	  返回子串s在L中最后出现的位置，如果没有子串s，则返回-1
+	  例如，L中存储数据是：abcdbccbdca, 假设s为字符串bc，那么算法返回4。
+	 */
+      int i,j,k=-1,n,m;
+      n=L.length;  //得到主串长度
+      m=strlen(s); //得到子串长度
+      if(n<m||m==0) return k;
+      for(i=0;i<=n-m;i++){ //对主串的字符逐个循环
+	 for(j=0;j<m;j++) //从子串的第一个字符开始逐个比较
+	    if(L.elem[i+j]!=s[j]) break;
+	 if(j==m)  k=i;  //子串匹配成功
+      }
+      return k;
+}
+/*平时作业或考试，我们只答"LastIndexOfString"这个函数就可以啦,注意给函数语句加注释，增加可读性！
+  LastIndexOfString函数的时间复杂度为O(n*m)，一般说来n要比m大的多，所以就不用使用(n-m)*m,空间复杂度为O(1)
+*/
+void main()
+{
+    SqList L;
+    Init(&L);//初始化顺序表
+    L.elem="abcdbccbdca";
+    L.length=11;
+    printf("主串:");
+    ListPrint(L);
+    printf("\"bc\"在主串中最后出现的位置是:%d\n",LastIndexOfString(L,"bc"));
+}

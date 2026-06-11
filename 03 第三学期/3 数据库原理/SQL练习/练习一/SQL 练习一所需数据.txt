@@ -1,0 +1,106 @@
+Create database construction;
+
+go
+use construction;
+go
+
+Create Table tblCategory
+(CategoryNo char(2) Primary key,
+categoryName char([[姓名已脱敏]已脱敏]));
+
+INSERT INTO  tblcategory  ( CategoryNo ,  categoryName ) VALUES ('1','Local');
+INSERT INTO  tblcategory  ( CategoryNo ,  categoryName ) VALUES ('2','Private');
+INSERT INTO  tblcategory  ( CategoryNo ,  categoryName ) VALUES ('3','Federal');
+INSERT INTO  tblcategory  ( CategoryNo ,  categoryName ) VALUES ('4','State');
+
+go
+
+Create Table tblDepartment
+(DepartNo char(1) Primary key,
+DepartName char([[姓名已脱敏]已脱敏]),
+ManagerNo char(4));
+
+INSERT INTO  tbldepartment  ( DepartNo ,  DepartName ,  ManagerNo ) VALUES ('A','ABC','1000');
+INSERT INTO  tbldepartment  ( DepartNo ,  DepartName ,  ManagerNo ) VALUES('B','Administration','6000');
+INSERT INTO  tbldepartment  ( DepartNo ,  DepartName ,  ManagerNo ) VALUES('C','Construction','9000');
+
+go
+
+Create Table tblEmployee
+(EmpNo char(4) Primary key,
+Surname varchar([[姓名已脱敏]已脱敏]),
+FName varchar([[姓名已脱敏]已脱敏]),
+sex char(1),
+Room char(4),
+Phone char(4),
+Salary numeric(7,2),
+DepartNo char(1) foreign key references tblDepartment(departNo));
+
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('1000','Smith','Bill','M','K123','5607',67000.00,'A');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('[[姓名已脱敏]已脱敏]00','Smith','Anne','F','H234','8976',56800.00,'B');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('3000','Sheedy','Kevin','F','B540','3456',87500.00,'C');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('4000','West','Karen','F','B231','3[[姓名已脱敏]已脱敏]0',45000.00,'A');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('6000','Smith','Gus','M','M777','4567',55000.00,'A');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('7000','Paul','Jenny','F','M555','3332',75000.00,'C');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('8000','Short','Michael','M','L123','8909',88000.00,'C');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('9000','Hird','Jim','M','W343','1111',90000.00,'A');
+INSERT INTO  tblemployee  ( EmpNo ,  Surname ,  FName ,  sex ,  Room ,  Phone ,  Salary ,  DepartNo ) VALUES ('9911','Wong','John','M','W222','2222',78000.00,'B');
+go
+
+Alter table tblDepartment
+add constraint c1 foreign key(managerNo) references tblEmployee(empNo);
+
+go
+Create Table tblProject
+(ProjectNo char(3) primary key,
+ProjectTitle char(30),
+StartDate Date,
+EndDate Date,
+SupervisorNo char(4) foreign key references tblEmployee(EmpNo),
+CategoryNo char(2) foreign key references tblCategory(CategoryNo),
+TotalCost numeric(10,2));
+
+
+
+
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('A10','Southern Freeway','[[姓名已脱敏]已脱敏]01/1/1','[[姓名已脱敏]已脱敏]03/12/12',1000,1,1000000); 
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('A11','Picture Theatre','[[姓名已脱敏]已脱敏]00/10/2','[[姓名已脱敏]已脱敏]02/9/30',7000,2,500000);
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('B22','City Tower','[[姓名已脱敏]已脱敏]02/10/25',NULL,7000,2,850000);
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('B55','Shopping Centre','[[姓名已脱敏]已脱敏]01/5/26','[[姓名已脱敏]已脱敏]03/10/10',1000,2,1150000);
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('D21','University Melbourne','[[姓名已脱敏]已脱敏]03/2/10',NULL,1000,3,990000);
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('D44','Melbourne Airport','[[姓名已脱敏]已脱敏]02/6/23','[[姓名已脱敏]已脱敏]03/12/18',8000,4,2100000); 
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('E11','Child Care Center','[[姓名已脱敏]已脱敏]01/8/14','[[姓名已脱敏]已脱敏]02/11/19',9911,2,500000);
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('F18','Northern Bridge','[[姓名已脱敏]已脱敏]01/10/8','[[姓名已脱敏]已脱敏]01/12/15',1000,4,1800000); 
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('F34','Swim Centre','[[姓名已脱敏]已脱敏]02/1/12','[[姓名已脱敏]已脱敏]03/10/19',1000,1,780000);
+INSERT INTO  tblproject ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('M33','Hotel Richmond','[[姓名已脱敏]已脱敏]01/6/3','[[姓名已脱敏]已脱敏]02/7/28',9911,2,500000); 
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('M89','Hotel Melton',NULL,NULL,1000,2,330000); 
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('T22','Western Car Yard','[[姓名已脱敏]已脱敏]02/3/14','[[姓名已脱敏]已脱敏]03/9/8',1000,2,670000);
+INSERT INTO  tblproject  ( ProjectNO ,  ProjectTitle ,  StartDate ,  EndDate ,  SupervisorNO ,  CategoryNO ,  TotalCost ) VALUES ('Z11','Ship Yard',NULL,NULL,1000,3,1400000);
+go
+
+Create Table tblAssigned
+(ProjectNo char(3),
+EmpNo char(4),
+Duration smallint,
+ChargeRate numeric(6,2),
+Primary key(ProjectNo, EmpNo),
+Foreign Key(ProjectNo) References tblProject(ProjectNo),
+Foreign key(EmpNo) References tblEmployee(EmpNo));
+
+
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A10','1000',14,28.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A10','[[姓名已脱敏]已脱敏]00',3,40.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A10','6000',28,33.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A10','7000',13,21.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A10','8000',150,42.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A11','3000',16,22.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A11','4000',17,28.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('A11','7000',28,42.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('D44','7000',23,21.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('D44','8000',15,38.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('E11','3000',3,25.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('E11','4000',5,21.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('E11','9911',10,21.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('M33','1000',10,52.00);
+INSERT INTO  tblassigned  ( ProjectNo ,  EmpNo ,  Duration ,  ChargeRate ) VALUES ('M33','9911',[[姓名已脱敏]已脱敏],42.00);
+go

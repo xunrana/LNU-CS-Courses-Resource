@@ -1,0 +1,83 @@
+--1.在数据库sy5中，将对表customer的查询权限授予用户U1
+grant select on customer to U1
+--2.创建一数据库jxgl,在其中建表department。 
+-- Department((DepartNo),DepartName) 
+-- 其中,DepartNo为主码,DepartName不能为空,不能重复
+create database jxgl
+create table department
+(
+departno varchar([[姓名已脱敏]已脱敏]) primary key,
+departname varchar([[姓名已脱敏]已脱敏]) unique not null
+)
+--3.在数据库jxgl中，建表teacher 
+-- Teacher(TeacherNO, TeacherName, age, Gender, title ,salary, departNO) 
+-- 其中,TeacherNO是主码, TeacherName不能为空, Gender取值男或女, age在18到65之间
+create table teacher 
+(
+teacherno varchar([[姓名已脱敏]已脱敏]) primary key,
+teachername varchar(10) not null,
+age int check(age>=18 and age<=65),
+gender varchar(10) check (gender in ('男',' 女')),
+title varchar([[姓名已脱敏]已脱敏]),
+salary money,
+departno varchar([[姓名已脱敏]已脱敏]),
+)
+--4.在teacher表里添加约束,职称取值为教授,副教授,讲师,助教。
+alter table teacher
+add constraint c1 check(title in('教授','副教授','讲师','助教')) 
+--5.在teacher表里添加约束,职称为教授的老师, 工资应超过6000
+alter table teacher
+add constraint c2 check(title !='教授' or (title='教授' and salary>6000))
+--6.在teacher表里添加约束,departNo为teacher表的外码, 当一个系撤销时, 
+--这个院系的教师所在院系编号设置为NULL。 当一个系的编号修改时,级联修改  
+alter table teacher
+add constraint tnokey foreign key(departno) references department(departno)
+--7.在数据库sy5里,  创建表unusual(CustNo,FName, LastName,oldCreditLimit, newCreditlimit)    
+create table unusual
+(
+custno char(4) primary key,
+fname char([[姓名已脱敏]已脱敏]),
+lastname char([[姓名已脱敏]已脱敏]),
+oldcreditlimit numeric(8,2),
+newcreditlimit numeric(8,2),
+)
+--8.在数据库sy5里, 定义触发器当顾客的信用卡额度提高超过10%以上时,将相关信息复制到unusual这个表里。
+create trigger c_t1
+on customer
+after update 
+as 
+begin 
+insert into unusual
+select d.custno,d.fname,d.lname,d.creditlimit,i.creditlimit
+from deleted d,inserted i
+where d.custno=i.custno and i.creditlimit>d.creditlimit*1.1
+end
+--9.在数据库sy5里, 创建表FormerSalsRep(SalsRepNO, FName, LastName, DepartNO)  
+create table formersalesrep
+(
+salesrepno char(2) primary key,
+fname char([[姓名已脱敏]已脱敏]),
+lastname char([[姓名已脱敏]已脱敏]),
+departno char(2),
+)
+--10.在数据库sy5里, 定义触发器当一个销售代表离开公司了,将该销售代表从表SalesRep中删除,同时将该销售代表的信息拷贝到FormerSalesRep表里。
+create trigger c_t2
+on salesrep
+after delete 
+as 
+begin 
+insert into formersalesrep
+select d.salesrepno,d.salesrepfname,d.salesreplastname,d.departno
+from deleted d
+end
+--11.在数据库sy5里,定义触发器,当在orderline表里添加新的数据时,自动更新客户的账户余额和商品的库存量
+create trigger c_t3
+on orderline
+after insert
+as
+begin
+update customer
+set balance=balance-(select qtypurchased*purchaseprice from inserted)
+update product
+set qtyonhand=qtyonhand-(select qtypurchased from inserted)
+end

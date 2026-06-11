@@ -1,0 +1,97 @@
+--学生选课数据库表结构
+--Student（Sno，Sname，Sex，Sbirthday，Sdept,Class）
+--学生  （[姓名已脱敏]，[姓名已脱敏]，性别，出生日期，所在院系，班级）
+--Teacher（Tno，Tname，Sex，Rating，Salary）
+--教师（教师编号，教师[姓名已脱敏]，性别，职称，工资）
+--course（Cno，Cname， Credit， Tno）
+--课程（课程号，课程名称，学分，教师编号）
+--Score(sno，cno，grade)
+--学生选课（[姓名已脱敏]，课程号，成绩）
+--1.查询所有信息系姓刘同学的信息。
+--2.查询1998年以后出生的学生[姓名已脱敏]和所在系（可以用year（）函数）
+--3.查询1998年和1999年出生的学生[姓名已脱敏]和所在系
+--4.查询王莉老师所教课程的课程名和学分
+--5.查询选修操作系统学生的名字和成绩
+--6.查询选修王莉老师所教课程的学生[姓名已脱敏]， [姓名已脱敏]和所在系
+--7.查询选修操作系统成绩超过90分学生的[姓名已脱敏]，所在系和成绩， 按成绩降序排列
+
+--8.查询没有选修操作系统的学生[姓名已脱敏]和[姓名已脱敏]
+
+--9.查询每名学生已选修的学分， 查询结果要求显示学生[姓名已脱敏]和总学分
+
+--10.查询每门课程已选修的人数， 查询结果要求显示课程名和选课人数
+
+--11.查询每门课程（课程名）的平均成绩，最高成绩，和最低成绩， 查询结果计算列重命名（平均成绩，最高成绩，和最低成绩）
+--12.查询每名老师所教的课程数， 查询结果要求显示教师名，和所教课程数
+
+--13.查询操作系统成绩最高的学生[姓名已脱敏]和所在系
+select sname,sdept
+from student
+where sno in
+(
+select sno from score where cno=(select cno from course where cname='操作系统') and grade=(select max(grade) from score where cno=(select cno from course where cname='操作系统'))
+)
+--14.查询没有课的老师的名字
+select tname
+from teacher
+where tno not in(select tno from course)
+--15.查询每个系每个班级有多少学生， 查询结果按系名降序，班级升序排序
+
+--16.查询选课人数超过3人的课程名
+
+--17.查询选课数超过2门的学生的平均成绩
+
+--18.查询既选修操作系统课程又选修计算机导论课程的学生[姓名已脱敏]和所在系（要求两种方法）
+select sname,sdept
+from student
+where sno in(select sno from score where cno=(select cno from course where cname='操作系统')) 
+and sno in(select sno from score where cno=(select cno from course where cname='计算机导论')) 
+
+
+select sname, sdept
+from student s, score sc, course c
+where s.sno=sc.sno and sc.cno=c.cno 
+and cname='操作系统'
+        and s.sno in ( select sno
+                           from score sc, course c
+                       where  sc.cno=c.cno and cname='计算机导论' )
+
+
+
+--19.查询每门课成绩最高的同学， 要求显示课程名，学生名，所在系，成绩。
+select cname,sname,sdept,grade
+from student s,score sc,course c
+where sc.sno=s.sno and sc.cno=c.cno and grade=(select max(grade) from score sc1 where sc1.cno=sc.cno)
+--[[姓名已脱敏]已脱敏].查询选修所有课程的学生的名字
+select sname
+from student s,score sc
+where sc.sno=s.sno 
+group by sname
+having count(*)=(select count(*) from course)
+--21.查询至少选修李军同学所选课的学生的名字
+
+
+
+select sname
+from student
+where sno in
+(
+select sno
+from score
+where cno in
+(select cno from student s,score sc where sc.sno=s.sno and sname='李军')
+)
+
+select sname
+from student s1
+where not exists
+( select *
+from score sc1 , student s2
+where sc1.sno=s2.sno and s2.sname='李军' 
+and   not exists 
+( select *
+from score sc2
+where sc2.sno=s1.sno 
+and sc2.cno=sc1.cno
+)
+)

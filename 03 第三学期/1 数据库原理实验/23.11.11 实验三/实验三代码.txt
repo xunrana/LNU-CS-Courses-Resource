@@ -1,0 +1,122 @@
+--Retail Database Table Structure
+--零售数据库表结构
+--Customer( CustNO, FName, LName, Street, Suburb, Postcode, Balance)
+--　顾客 （顾客号，名，姓，街道，城市，邮政编码，余额）
+--Department( DepartNO, DepartName)
+--　部门（部门号，部门名）
+--SalesRep( SalesRepNO, SalesRepLastName, SalesRepFName, DepartNOfk)
+--　销售代表 （销售代表号，姓，名，部门号）
+--Orders( OrderNO, CustNOfk, OrdDate, SalesRepNOfk, OrdStatus)
+--　订单（订单号，顾客号，订单日期，销售代表号，订单状态）
+--OrderLine( OrderNO fk, ProductNOfk, QtyPurchased, PurchasePrice)
+--　订单明细（订单号，商品号，购买数量，销售价格）
+--Product( ProductNO, ProdDescription,QtyOnHand, UnitPrice)
+--　商品（商品号，商品名，库存量，单价）
+
+--1.查询工作在’Clothing’部门的销售代表的[姓名已脱敏]。
+select salesreplastname,salesrepfname
+from salesrep s,department d
+where d.departno=s.departno and d.departname='Clothing'
+
+--2.查询购买商品的单价不在[[姓名已脱敏]已脱敏]0元和400元之间（不包括[[姓名已脱敏]已脱敏]0和400）的订单信息。
+select o.orderno,o.productno,o.qtypurchased,o.purchaseprice
+from orderline o,product p
+where o.productno=p.productno and unitprice not between [[姓名已脱敏]已脱敏]0 and 400
+
+--3.查询有订单的顾客[姓名已脱敏]
+select distinct fname,lname
+from customer c,orders o
+where c.custno=o.custno 
+
+--4.查询一直都没有售出的商品的商品号,商品名
+select p.productno,proddescription
+from product p
+where not exists (select *
+                  from orderline o
+                  where o.productno=p.productno) 
+
+--5.顾客号为1040的顾客有多少个订单？
+select count(*) as ordercount
+from orders 
+where custno='1040'
+--Retail Database Table Structure
+
+--6.	对于每个订单，显示顾客[姓名已脱敏]，销售代表的[姓名已脱敏]，订单号，订单日期，每个商品名及数量， 按顾客[姓名已脱敏]升序，订单日期降序排列
+select lname,fname,salesreplastname,salesrepfname,o.orderno,orddate,proddescription,qtypurchased
+from customer c,salesrep s,orders o,orderline ol,product p
+where c.custno=o.custno and s.salesrepno=o.salesrepno and o.orderno=ol.orderno and ol.productno=p.productno
+order by lname,fname asc,orddate desc
+
+--7.每个订单上一共消费多少钱？ 显示订单号，总计价钱，并将总计价钱重新命名为’Total Amount’
+select orderno,sum(qtypurchased*purchaseprice) as 'Tatal Amount'
+from orderline 
+group by orderno
+
+--8.查询每一个部门里有多少销售代表？ 显示部门名，和销售代表数，并将销售代表数重新命名为’ Number of Employees’
+select d.departname,count(s.salesrepno) as 'Number of Employees'
+from department d,salesrep s
+where d.departno=s.departno
+group by d.departname
+
+--9.哪些顾客有超过三个以上的订单，显示顾客[姓名已脱敏]和订单数。
+select lname,fname,count(o.orderno) as ordercnt
+from customer c,orders o
+where o.custno=c.custno 
+group by lname,fname
+having count(o.orderno) > 3
+
+--10.查询订单状态为’C’和为’N’的订单数， 结果按状态升序排列。
+select ordstatus,count(*) as stacnt
+from orders
+group by ordstatus
+order by ordstatus desc
+
+--11.查询受理订单书超过3个的销售代表的[姓名已脱敏]，要求显示销售代表的[姓名已脱敏]，和订单数。
+select salesreplastname,salesrepfname,count(*) as ordercnt
+from salesrep s,orders o
+where s.salesrepno=o.salesrepno
+group by salesreplastname,salesrepfname
+having count(*)>3
+
+--12.查询订单号为12630的顾客[姓名已脱敏]。
+select lname,fname
+from customer c,orders o
+where o.custno=c.custno and o.orderno=12630
+
+--13.商品号为’DP03’的商品被订了多少次？
+select count(*) as ordercnt
+from orderline 
+where productno='DP03'
+
+--14.查询订购的商品名为’Walkman’的顾客[姓名已脱敏]。
+select lname,fname
+from customer c,orders o,orderline ol,product p
+where c.custno=o.custno and o.orderno=ol.orderno and ol.productno=p.productno and p.proddescription='Walkman'
+
+--15.查询最高的账户余额是多少
+select max(balance) as 'Highest Balance'
+from customer
+
+--16.查询由销售代表Smith Bill销售过商品的顾客[姓名已脱敏]。
+select distinct lname,fname
+from customer c,orders o,salesrep s
+where c.custno=o.custno and s.salesrepno=o.salesrepno and salesreplastname='Smith' and salesrepfname='Bill'
+
+
+1.去重与聚合函数：应用DISTINCT和聚合函数（例如 COUNT 和 SUM）检索唯一值，并对数据执行计算。
+
+2.子查询：使用子查询根据另一表中的条件查找信息（例如具有订单的客户）。
+
+3.存在性检查：利用 NOT EXISTS 子句找到从未售出过的商品。
+
+4.计数与分组：运用 COUNT 和 GROUP BY 找到特定顾客的订单数量。
+
+5.计算总额： 利用 SUM 聚合数据，计算每个订单的总金额。
+
+6.分组与计数的联结： 运用 GROUP BY 和 COUNT 在联结中找到每个部门中销售代表的数量。
+
+7.带有HAVING的分组： 使用 GROUP BY 和 HAVING 找到订单超过三个的顾客。
+
+8.分组与排序： 运用 GROUP BY 和 ORDER BY 计算并显示每个订单状态的订单数量。
+
+9.带HAVING的分组与筛选： 利用 GROUP BY 和 HAVING 找到有超过三个订单的销售代表。
