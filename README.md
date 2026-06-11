@@ -20,7 +20,7 @@
 | 参考成绩数据与备考策略 | 点击下方学期链接 → 学期 README 含修读同学均分对比与备考攻略 |
 | 搜索历年考卷 | [往年课程试卷库](10%20往年课程试卷/README.md)（57 门课 · 320 份，年代较早，仅供参考） |
 | 贡献资料 / 纠错 | ↓ [贡献指南](#-贡献指南) |
-| 只想下载某一个文件夹 | ↓ [下载方式](#-下载方式)（推荐 DownGit，无需克隆整库） |
+| 只想下载某一个文件夹 | ↓ [下载方式](#-下载方式)（推荐 Sparse Checkout，无需克隆整库） |
 
 ---
 
@@ -291,26 +291,27 @@ LNU-CS-Courses-Resource/
 
 > 不推荐直接 `git clone` 整个仓库——历史版本较大，且多数情况下你只需要某一门课的资料。
 
-### 方式一：DownGit（推荐）
+### 方式一：Git Sparse Checkout（推荐，仅克隆指定目录）
 
-1. 在 GitHub 页面浏览，复制你要下载的文件夹 URL
-   - 例：`https://github.com/XUNRANA/LNU-CS-Courses-Resource/tree/main/03%20第三学期/3%20数据结构`
-2. 打开 [DownGit](https://minhaskamal.github.io/DownGit/#/home)，粘贴 URL，点击 **Download**
-3. 优点：无需 GitHub 账号，不下载历史记录，速度快
-
-### 方式二：GitZip 浏览器扩展
-
-1. 安装 [GitZip](https://gitzip.org/) 扩展（支持 Chrome / Firefox）
-2. 在 GitHub 页面双击目标文件夹，点击扩展按钮即可下载
-3. 优点：操作最直观，鼠标点选即下载
-
-### 方式三：Git Sparse Checkout（仅克隆指定目录）
+对中文与空格路径完全可靠，只需安装 [Git](https://git-scm.com/)：
 
 ```bash
 git clone --filter=blob:none --sparse https://github.com/XUNRANA/LNU-CS-Courses-Resource.git
 cd LNU-CS-Courses-Resource
 git sparse-checkout set "03 第三学期/3 数据结构"
 ```
+
+把最后一行的目录换成你需要的课程文件夹即可；之后想再取其他课程，重复执行 `git sparse-checkout add "目录名"`。
+
+### 方式二：GitZip 浏览器扩展
+
+1. 安装 [GitZip](https://gitzip.org/) 扩展（支持 Chrome / Firefox / Edge）
+2. 在 GitHub 页面双击目标文件夹，点击扩展按钮即可下载
+3. 优点：鼠标点选即下载；注意：大文件夹会触发 GitHub API 限流，需在扩展设置中填入个人 Token
+
+### 方式三：整库 Download ZIP
+
+GitHub 仓库页面 **Code → Download ZIP** 一键打包下载，操作最简单，但体积较大（数 GB），适合想离线保存全套资料的同学。
 
 ---
 
