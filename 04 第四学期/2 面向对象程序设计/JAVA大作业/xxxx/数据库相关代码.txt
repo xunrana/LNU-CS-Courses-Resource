@@ -1,0 +1,216 @@
+CREATE TABLE MovieTypes (
+    type_id INT PRIMARY KEY,
+    type_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Regions (
+    region_id INT PRIMARY KEY,
+    region_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Directors (
+    director_id INT PRIMARY KEY,
+    director_name VARCHAR(100) NOT NULL,
+    birth_date DATE
+);
+
+CREATE TABLE Actors (
+    actor_id INT PRIMARY KEY,
+    actor_name VARCHAR(100) NOT NULL,
+    birth_date DATE
+);
+
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Admins (
+    admin_id INT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Movies (
+    movie_id INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    release_date DATE,
+    duration INT,
+    rating DOUBLE,
+    plot_summary TEXT,
+    type_id INT,
+    region_id INT,
+    director_id INT,
+    FOREIGN KEY (type_id) REFERENCES MovieTypes(type_id),
+    FOREIGN KEY (region_id) REFERENCES Regions(region_id),
+    FOREIGN KEY (director_id) REFERENCES Directors(director_id)
+);
+
+CREATE TABLE MovieActors (
+    movie_id INT,
+    actor_id INT,
+    PRIMARY KEY (movie_id, actor_id),
+    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+    FOREIGN KEY (actor_id) REFERENCES Actors(actor_id)
+);
+
+CREATE TABLE UserFavorites (
+    user_id INT,
+    movie_id INT,
+    date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, movie_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+);
+
+CREATE TABLE UserRatings (
+    user_id INT,
+    movie_id INT,
+    rating DOUBLE,
+    date_rated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, movie_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+);
+
+
+-- Insert into MovieTypes
+INSERT INTO MovieTypes (type_id, type_name)
+VALUES
+    (1, 'Action'),
+    (2, 'Comedy'),
+    (3, 'Drama'),
+    (4, 'Sci-Fi'),
+    (5, 'Horror'),
+    (6, 'Romance'),
+    (7, 'Thriller'),
+    (8, 'Animation'),
+    (9, 'Fantasy'),
+    (10, 'Adventure');
+
+-- Insert into Regions
+INSERT INTO Regions (region_id, region_name)
+VALUES
+    (1, 'USA'),
+    (2, 'UK'),
+    (3, 'Canada'),
+    (4, 'France'),
+    (5, 'Germany'),
+    (6, 'Australia'),
+    (7, 'Japan'),
+    (8, 'China'),
+    (9, 'South Korea'),
+    (10, 'India');
+
+-- Insert into Directors
+INSERT INTO Directors (director_id, director_name, birth_date)
+VALUES
+    (1, 'Christopher Nolan', '1970-07-30'),
+    (2, 'Quentin Tarantino', '1963-03-27'),
+    (3, 'Steven Spielberg', '1946-12-18'),
+    (4, 'Martin Scorsese', '1942-11-17'),
+    (5, 'James Cameron', '1954-08-16'),
+    (6, 'Peter Jackson', '1961-10-31'),
+    (7, 'Alfred Hitchcock', '1899-08-13'),
+    (8, 'Akira Kurosawa', '1910-03-23'),
+    (9, 'Hayao Miyazaki', '1941-01-05'),
+    (10, 'Spike Lee', '1957-03-[[姓名已脱敏]已脱敏]');
+
+-- Insert into Actors
+INSERT INTO Actors (actor_id, actor_name, birth_date)
+VALUES
+    (1, 'Tom Hanks', '1956-07-09'),
+    (2, 'Leonardo DiCaprio', '1974-11-11'),
+    (3, 'Meryl Streep', '1949-06-22'),
+    (4, 'Brad Pitt', '1963-12-18'),
+    (5, 'Emma Stone', '1988-11-06'),
+    (6, 'Robert Downey Jr.', '1965-04-04'),
+    (7, 'Jennifer Lawrence', '1990-08-15'),
+    (8, 'Will Smith', '1968-09-25'),
+    (9, 'Scarlett Johansson', '1984-11-22'),
+    (10, 'Chris Evans', '1981-06-13');
+
+-- Insert into Users
+INSERT INTO Users (user_id, username, password)
+VALUES
+    (1, 'user1', 'password1'),
+    (2, 'user2', 'password2'),
+    (3, 'user3', 'password3'),
+    (4, 'user4', 'password4'),
+    (5, 'user5', 'password5'),
+    (6, 'user6', 'password6'),
+    (7, 'user7', 'password7'),
+    (8, 'user8', 'password8'),
+    (9, 'user9', 'password9'),
+    (10, 'user10', 'password10');
+
+-- Insert into Admins
+INSERT INTO Admins (admin_id, username, password)
+VALUES
+    (1, 'admin1', 'adminpass1'),
+    (2, 'admin2', 'adminpass2'),
+    (3, 'admin3', 'adminpass3'),
+    (4, 'admin4', 'adminpass4'),
+    (5, 'admin5', 'adminpass5'),
+    (6, 'admin6', 'adminpass6'),
+    (7, 'admin7', 'adminpass7'),
+    (8, 'admin8', 'adminpass8'),
+    (9, 'admin9', 'adminpass9'),
+    (10, 'admin10', 'adminpass10');
+
+-- Insert into Movies
+INSERT INTO Movies (movie_id, title, release_date, duration, rating, plot_summary, type_id, region_id, director_id)
+VALUES
+    (1, 'Inception', '[[姓名已脱敏]已脱敏]10-07-16', 148, 8.8, 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO.', 4, 1, 1),
+    (2, 'Pulp Fiction', '1994-10-14', 154, 8.9, 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.', 7, 1, 2),
+    (3, 'Schindler''s List', '1993-12-15', 195, 8.9, 'In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.', 3, 1, 3),
+    (4, 'The Godfather', '1972-03-24', 175, 9.2, 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 3, 1, 4),
+    (5, 'Avatar', '[[姓名已脱敏]已脱敏]09-12-18', 162, 7.8, 'A paraplegic marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.', 4, 1, 5),
+    (6, 'The Lord of the Rings: The Return of the King', '[[姓名已脱敏]已脱敏]03-12-17', [[姓名已脱敏]已脱敏]1, 8.9, 'Gandalf and Aragorn lead the World of Men against Sauron\'s army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.', 9, 2, 6),
+    (7, 'Psycho', '1960-09-08', 109, 8.5, 'A Phoenix secretary embezzles $40,000 from her employer\'s client, goes on the run, and checks into a remote motel run by a young man under the domination of his mother.', 5, 1, 7),
+    (8, 'Seven Samurai', '1954-04-26', [[姓名已脱敏]已脱敏]7, 8.6, 'A poor village under attack by bandits recruits seven unemployed samurai to help them defend themselves.', 1, 7, 8),
+    (9, 'Spirited Away', '[[姓名已脱敏]已脱敏]01-07-[[姓名已脱敏]已脱敏]', 125, 8.6, 'During her family\'s move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.', 8, 7, 9),
+    (10, 'Black Panther', '[[姓名已脱敏]已脱敏]18-02-16', 134, 7.3, 'T\'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country\'s past.', 1, 1, 10);
+
+-- Insert into MovieActors
+INSERT INTO MovieActors (movie_id, actor_id)
+VALUES
+    (1, 2),  -- Leonardo DiCaprio in Inception
+    (2, 4),  -- Brad Pitt in Pulp Fiction
+    (3, 1),  -- Tom Hanks in Schindler's List
+    (4, 6),  -- Robert Downey Jr. in The Godfather
+    (5, 7),  -- Jennifer Lawrence in Avatar
+    (6, 2),  -- Leonardo DiCaprio in The Lord of the Rings: The Return of the King
+    (7, 3),  -- Meryl Streep in Psycho
+    (8, 8),  -- Will Smith in Seven Samurai
+    (9, 9),  -- Scarlett Johansson in Spirited Away
+    (10, 10); -- Chris Evans in Black Panther
+
+-- Insert into UserFavorites
+INSERT INTO UserFavorites (user_id, movie_id)
+VALUES
+    (1, 1),  -- User 1 favorites Inception
+    (2, 3),  -- User 2 favorites Schindler's List
+    (3, 4),  -- User 3 favorites The Godfather
+    (4, 6),  -- User 4 favorites The Lord of the Rings: The Return of the King
+    (5, 8),  -- User 5 favorites Seven Samurai
+    (6, 10), -- User 6 favorites Black Panther
+    (7, 2),  -- User 7 favorites Pulp Fiction
+    (8, 5),  -- User 8 favorites Avatar
+    (9, 7),  -- User 9 favorites Psycho
+    (10, 9); -- User 10 favorites Spirited Away
+
+-- Insert into UserRatings
+INSERT INTO UserRatings (user_id, movie_id, rating)
+VALUES
+    (1, 1, 9.0),   -- User 1 rates Inception
+    (2, 3, 9.5),   -- User 2 rates Schindler's List
+    (3, 4, 9.2),   -- User 3 rates The Godfather
+    (4, 6, 9.1),   -- User 4 rates The Lord of the Rings: The Return of the King
+    (5, 8, 8.7),   -- User 5 rates Seven Samurai
+    (6, 10, 7.8),  -- User 6 rates Black Panther
+    (7, 2, 9.3),   -- User 7 rates Pulp Fiction
+    (8, 5, 7.9),   -- User 8 rates Avatar
+    (9, 7, 8.6),   -- User 9 rates Psycho
+    (10, 9, 8.8);  -- User 10 rates Spirited Away
