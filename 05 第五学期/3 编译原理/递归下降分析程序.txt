@@ -1,0 +1,36 @@
+void S()
+{
+	if(lookhead=='a')
+	{
+		lookhead=nextToken();
+		B();
+		if(lookhead=='c') lookhead=nextToken();
+		else error;
+	}
+	else if(lookhead=='b')
+	{
+		lookhead=nextToken();
+		A();
+		B();
+	}
+	else error;
+}
+
+
+void A()
+{
+	if(lookhead=='a')
+	{
+		lookhead=nextToken();
+		A();
+		if(lookhead=='b') lookhead=nextToken();
+		else error;
+	}
+	else if(lookhead=='b') lookhead=nextToken();
+	else error;
+}
+
+void B()
+{
+	if(lookhead=='b') lookhead=nextToken();
+}

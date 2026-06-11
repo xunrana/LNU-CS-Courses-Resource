@@ -1,0 +1,133 @@
+#include <bits/stdc++.h>  // 引入C++标准库头文件，包含了常用的标准库，如iostream, vector等
+using namespace std;  // 使用标准命名空间，简化代码书写
+
+// 定义页表的结构体
+typedef struct
+{
+	int status;  // 页面状态，1表示该页面已经加载，0表示该页面没有加载
+	int num;     // 页面对应的物理块编号
+}PageTab;
+
+// 定义常量，最大页面数
+const int MaxPage = 8;  // 最大页面数为8
+// 定义常量，物理块的大小，单位字节
+const int BlockSize = 1024;  // 物理块大小为1KB
+// 定义一个变量，表示队列的最大长度
+int cnt = 3;  // 队列最多有3个页面
+// 定义一个大小为MaxPage的vector，用于存储页表信息
+vector<PageTab> pagetab(MaxPage);
+// 定义一个大小为MaxPage的vector，用于存储队列中的页面的时间戳（表示页面的使用顺序）
+vector<int> que(MaxPage);
+
+// change函数用于模拟页面置换操作
+void change()
+{
+	int logic;  // 逻辑地址
+	int x = -1;  // 被淘汰的页面的索引，初始化为-1
+	int minimum = 8;  // 最小的时间戳，初始化为8
+	string s = "No";  // 标记是否发生缺页，初始化为"No"
+	cout << "请输入逻辑地址\n";  // 提示用户输入逻辑地址
+	cin >> logic;  // 获取用户输入的逻辑地址
+	int pnum = logic / BlockSize;  // 计算逻辑地址对应的页号
+	int movement = logic % BlockSize;  // 计算逻辑地址在页内的偏移量
+	// 检查页号是否合法
+	if (pnum > MaxPage)
+	{
+		cout << "非法地址\n";  // 如果页号超出最大页面数，输出非法地址
+		return;
+	}
+	// 如果该页没有加载到内存中，则发生缺页
+	if (!pagetab[pnum].status)
+	{
+		s = "Yes";  // 设置缺页标志为"Yes"
+		// 找到队列中时间戳最小的页面，进行淘汰
+		for (int i = 0; i < MaxPage; i += 1)
+			if (pagetab[i].status && que[i] < minimum) minimum = que[i], x = i;  // 查找时间戳最小的页面
+		que[pnum] = cnt;  // 为新页面设置当前时间戳
+		cnt++;  // 更新时间戳计数
+		// 将该页面加载到内存中，替换掉被淘汰的页面
+		pagetab[pnum].status = 1;  // 标记该页已加载
+		pagetab[pnum].num = pagetab[x].num;  // 将被淘汰页面的物理块编号赋值给当前页面
+		pagetab[x] = {0, 0};  // 将被淘汰的页面标记为未加载
+	}
+	// 输出逻辑地址信息
+	cout << " \n 逻辑地址：" << logic << "\n";
+	cout << " 页号：" << pnum << "\n";
+	cout << " 页内位移：" << movement << "\n";
+	cout << " 是否缺页：" << s << "\n";
+	cout << " 淘汰的页面:";
+	if (x >= 0) cout << x << endl;  // 如果有被淘汰的页面，输出其索引
+	else cout << endl;
+	// 输出当前逻辑地址对应的物理地址信息
+	cout << " 该逻辑地址存储的物理块：" << pagetab[pnum].num << "\n";
+	cout << " 物理地址：" << pagetab[pnum].num * BlockSize + movement << "\n";
+}
+
+// show函数用于显示当前的页表信息
+void show()
+{
+	// 遍历每个页面，显示其状态和物理块编号
+	for (int i = 0; i < MaxPage; i++)
+	{
+		cout << " " << i << "   " << pagetab[i].status;  // 显示页面索引和状态
+		if (pagetab[i].status == 1) cout << "    " << pagetab[i].num;  // 如果页面已经加载，则显示其物理块编号
+		cout << "\n";  // 换行
+	}
+}
+
+// menu函数用于显示操作菜单
+void menu()
+{
+	cout << "1 change\n";  // 操作1：页面置换
+	cout << "2 show 显示页表\n";  // 操作2：显示页表信息
+	cout << "0 exit 退出\n";  // 操作0：退出程序
+}
+
+// solve函数用于初始化和处理输入输出
+void solve()
+{
+	// 初始化页表
+	for (int i = 0; i < MaxPage; i++) pagetab[i].status = 0;  // 初始化所有页面的状态为未加载
+	// 假设页面0、1、2已经加载到内存中，并指定它们的物理块编号
+	pagetab[0] = {1, 9};
+	pagetab[1] = {1, 5};
+	pagetab[2] = {1, 4};
+	// 设置队列中的页面时间戳
+	que[0] = 0;
+	que[1] = 1;
+	que[2] = 2;
+	// 循环，直到用户选择退出
+	while (1)
+	{
+		menu();  // 显示操作菜单
+		char op;  // 存储用户输入的操作
+		cin >> op;  // 获取用户输入的操作
+		// 根据用户的输入执行相应的操作
+		if (op == '1') change();  // 操作1：调用change函数进行页面置换
+		else if (op == '2') show();  // 操作2：调用show函数显示页表信息
+		else if (op == '0') break;  // 操作0：退出程序
+		else cout << "输入错误，重新输入\n";  // 输入错误时提示重新输入
+	}
+}
+
+// 主函数
+int main()
+{
+	int T = 1;  // 假设有多个测试用例，但这里只有一个
+	while (T--) solve();  // 反复执行solve函数，处理页面置换操作
+}
+
+
+
+/*
+2
+1
+1002
+1
+6000
+1
+7999
+1
+10000000
+0
+*/

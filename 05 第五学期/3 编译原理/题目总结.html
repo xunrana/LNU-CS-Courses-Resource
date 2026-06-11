@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题目总结</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 100%;
+            background-color: #fff;
+        }
+
+        #title {
+            width: 100%;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #question {
+            /* 题目的样式 */
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #choices {
+            /* 选项的样式 */
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #choices>div {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #choices>div:hover {
+            border: 1px solid #aaa;
+            transform: scale(1.06);
+        }
+
+        .correct {
+            background-color: #4cd137;
+            color: #fff;
+        }
+
+        .wrong {
+            background-color: #e84118;
+            color: #fff;
+        }
+
+        .next {
+            text-align: center;
+            background-color: #555;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="title">选择题</div>
+        <div id="question"></div>
+        <div id="choices"></div>
+    </div>
+    <script>
+        let xuanze = [{
+            "question": "在下列对于 LR(k)分析技术的描述中，错误的是(    )",
+            "choices": [
+                "L 是指从左向右扫描输入",
+                "是一种自上而下的语法分析技术",
+                "R 是指构造最右推导的逆",
+                "k 是指决定动作时向前搜索的符号个数"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "过程调用时，活动记录被压入运行栈，由栈底至栈顶的内容分别是(    )。",
+            "choices": [
+                "临时数据和局部数据、返回值和参数、控制链和保存的机器状态",
+                "返回值和参数、控制链和保存的机器状态、临时数据和局部数据",
+                "控制链和保存的机器状态、临时数据和局部数据、返回值和参数",
+                "控制链和保存的机器状态、返回值和参数、临时数据和局部数据"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "关于 LL(1)文法，下列描述错误的是(    )。",
+            "choices": [
+                "不包含左递归，但有可能有公共左因子",
+                "第一个 L 是指从左向右扫描输入",
+                "(1)是指决定动作时向前查看下一个输入符号",
+                "第二个 L 是指产生最左推导"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "下列哪项不属于循环优化的技术(    )",
+            "choices": [
+                "复写传播",
+                "强度削弱",
+                "归纳变量删除",
+                "代码外提"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "有拓广文法如下：E’→ E，E → E+T∣T，T → T*F∣F，F →（E）∣id，如果I是项目集{[E’ → E•]，[E → E• + T]}，那么goto（I，+）不包括下列哪个项目？(    )",
+            "choices": [
+                "T →T• * F",
+                "F → • (E)",
+                "T → • F",
+                "E → E +• T"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "如果 a 和 b 都是过程活动，那么在活动树中(    )，当且仅当 a 的生存期先于 b 的生存期。",
+            "choices": [
+                "结点 b 是叶子节点",
+                "结点 a 是结点 b 的父结点",
+                "结点 a 处于结点 b 的左边",
+                "结点 a 是根节点"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "“运算符与运算对象类型不匹配”属于(    )。",
+            "choices": [
+                "语法错误",
+                "语义错误",
+                "语用错误",
+                "词法错误"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下列对于LR(k)分析技术的描述中，错误的是(    )。",
+            "choices": [
+                "k是指决定动作时向前搜索的符号个数",
+                "R 是指构造最右推导",
+                "二义文法一定不是 LR 文法",
+                "L是指从左向右扫描输入"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "分析树的内部节点由(    )标记。",
+            "choices": [
+                "非终结符",
+                "运算符号",
+                "产生式右部",
+                "开始符号"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "下列是符号串s: 0147812io的后缀的符号串是(    )",
+            "choices": [
+                "047",
+                "812io",
+                "空集ɸ",
+                "478"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下列可以丰富所表达的类型的是(    )。",
+            "choices": [
+                "重载的算符",
+                "重载的函数",
+                "类型命名",
+                "类型构造符"
+            ],
+            "answer": "D"
+        },
+        {
+            "question": "表达式a-bc+*de+/是下面哪个表达式的后缀式(    )",
+            "choices": [
+                "-a*b+c/(d+e)",
+                "-a*(b+c)/(d+e)",
+                "-a*(b+c)/d+e",
+                "-a*b+c/d+e"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下列哪项描述属于类型检查相关的内容(    )。",
+            "choices": [
+                "数组变量和函数变量相加",
+                "编译器检查两个地方是否使用同样的名字",
+                "枚举类型的元素不能重复",
+                "C 语言的 break 语句引起控制离开最小包围的语句"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "字母表{a，b}上的串描述为“包含 ab 子串的所有串”，其正规式为(    )。",
+            "choices": [
+                "(a∣b)*ab",
+                "(ab)*(a∣b)",
+                "(ab)*ab(ab)*",
+                "(a*ba*ba)*"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "下列关于确定自动机(DFA)的描述中，错误的是(    )。",
+            "choices": [
+                "DFA的转换函数肯定是全函数。",
+                "对任何状态s和任何输入符号a，最多只有一条标记为a的边离开s。",
+                "与一个DFA等价的最简DFA是唯一的。",
+                "任何状态都没有ε转换。"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "下面哪个表达式的后缀表示是abc+*d/e-(    )",
+            "choices": [
+                "a*b+c/d-e",
+                "a*(b+c)/(d-e)",
+                "a*(b+c)/d-e",
+                "a*b+c/(d-e)"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "哪种文法不是正规文法(    )",
+            "choices": [
+                "2型文法",
+                "右线形文法",
+                "3型文法",
+                "左线形文法"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "下面关于基本块的描述错误的是(    )。",
+            "choices": [
+                "基本块是一个连续的三地址语句序列",
+                "基本块可作为流图的结点",
+                "没有两个基本块是等价的",
+                "控制流从基本块的开始进入，从末尾离开"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "词法分析阶段的任务不包括(    )。",
+            "choices": [
+                "产生用于语法分析的词法记号序列",
+                "根据输入的字符流构造分析树",
+                "剥去源程序的注解和空白",
+                "把来自编译器各个阶段的错误信息和源程序联系起来。"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "在分析树中，一个结点的继承属性的值不是通过它的(    )的属性值来计算。",
+            "choices": [
+                "父结点",
+                "兄弟结点",
+                "子结点",
+                "自身结点"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "编译过程通常可以分为词法分析、语法分析、(    )、独立于机器的代码优化、代码生成、依赖于机器的代码优化 7 个阶段。",
+            "choices": [
+                "线性分析、三地址代码生成",
+                "语义分析、中间代码生成",
+                "语法翻译、全局数据流分析",
+                "语法树生成、类型检查"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下列不属于参数传递方法的是(    )",
+            "choices": [
+                "传名调用",
+                "引用调用",
+                "分配调用",
+                "传值调用"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "表达式a+b/c-d*e的后缀表达式是(    )",
+            "choices": [
+                "abc/+de*-",
+                "bc/+de*a",
+                "bc/-de*a+",
+                "abc/-de*+"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "下面哪个正则表达式描述的自然语言是：两个1之间不含0或含多个0的0和1组成的符号串。(    )",
+            "choices": [
+                "011(011)*",
+                "10*1",
+                "(0∣1)*011",
+                "(10∣0)*"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "正则集合L={a^n∣n≥0}，相应的正则表达式是(    )",
+            "choices": [
+                "aa+",
+                "aa*",
+                "a*",
+                "a+"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "下述四个文法，无需构造预测分析表，指出那一个是LL(1)文法(    )",
+            "choices": [
+                "S→iCtS∣iCtSeS∣a，C→b",
+                "S→aA∣Aa，A→a∣ε",
+                "S→Ra∣a，R→Sb∣b",
+                "S→aAc∣b，A→a∣b∣c"
+            ],
+            "answer": "D"
+        },
+        {
+            "question": "编译过程中,语法分析程序的任务不包括(    )",
+            "choices": [
+                "分析单词是怎样构成的",
+                "分析单词串是如何构成语句和说明的",
+                "分析语句和说明是如何构成程序的",
+                "分析程序的结构"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "如果一个文法无二义性,则它的任何句子(    )",
+            "choices": [
+                "最左推导和最右推导对应的语法树必定相同",
+                "最左推导和最右推导对应的语法树可能不同",
+                "最左推导和最右推导必定相同",
+                "可能存在两个不同的最左推导，但它们对应的语法树相同"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "如果源程序中出现了“在数中有非数字字符”这样的错误，那么该错误应在编译过程的(    )阶段给予报告。",
+            "choices": [
+                "语法分析",
+                "词法分析",
+                "代码生成",
+                "代码优化"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "关于二义文法，下列描述错误的是(    )。",
+            "choices": [
+                "文法二义不代表语言一定二义",
+                "分析器不允许文法二义。",
+                "二义文法一定不是 LL(1)的。",
+                "二义文法一定不是 LR 的。"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下面(    )文法可以产生语言L(G)={a^nbb^n|n≥1}",
+            "choices": [
+                "Z→aZb∣aAb∣b，A→aAb∣b",
+                "A→aAb∣b",
+                "Z→AbB，A→aA∣a，B→bB∣b",
+                "Z→aAb，A→aAb∣b"
+            ],
+            "answer": "D"
+        },
+        {
+            "question": "在分析树中，一个节点的综合属性的值是通过它的(    )的属性值来计算。",
+            "choices": [
+                "父节点",
+                "子节点",
+                "兄弟节点",
+                "根节点"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "若a为终结符，则A→α·aβ为(    )项目",
+            "choices": [
+                "规约",
+                "移进",
+                "接受",
+                "待约"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "以下不属于静态单赋值形式（SSA）特征的是(    )。",
+            "choices": [
+                "编译器中可以用记录来实现",
+                "所有赋值指令是对不同名字变量赋值",
+                "使用称作Φ函数的记号",
+                "每条指令通常包含至少三个地址"
+            ],
+            "answer": "D"
+        },
+        {
+            "question": "有文法如下 S→cAd，A→aAb∣ab，该文法所识别的语言是什么？(    )",
+            "choices": [
+                "L={cabd}",
+                "L={ca^nb^nd∣n>0}",
+                "L={a^ncdb^n∣n>0}",
+                "L={c^nabd^n∣n>0}"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "赋值语句x:=-(a+b)/(e-d)-(a+b*e)的逆波兰表示是(    )。",
+            "choices": [
+                "xab+ed-/-be*a+-:=",
+                "xab+/ed-be*a+--:=",
+                "xab+-ed-/abe*+-:=",
+                "xab+ed-/abe*+--:="
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "自底向上的语法分析方法的关键问题是如何判定(    )。",
+            "choices": [
+                "产生式",
+                "冲突",
+                "句柄",
+                "非终结符"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "如果源程序中出现了“else没有相应的if与之匹配”这样的错误，那么该错误应在编译过程的(    )阶段给予报告。",
+            "choices": [
+                "词法分析",
+                "语法分析",
+                "代码优化",
+                "代码生成"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下列对语法树的描述正确的是(    )。",
+            "choices": [
+                "语法指导翻译不能基于语法树进行",
+                "语法树中，算符不作为叶子结点",
+                "语法树中，单非产生式链不可能消失",
+                "语法树不能作为中间表示"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下列哪项属于循环优化的技术(    )",
+            "choices": [
+                "公共子表达式删除",
+                "死代码删除",
+                "归纳变量删除",
+                "复写传播"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "下列关于语法树的描述正确的是(    )。",
+            "choices": [
+                "语法树中算符作为叶子节点",
+                "语法制导的翻译可以基于语法树",
+                "语法树中不可以把属性附加到节点",
+                "分析树是语法树的浓缩表示"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "编译方法中，动态存储分配的含义是(    )",
+            "choices": [
+                "在编译阶段为源程序中的量进行分配",
+                "在编译阶段为源程序中的量进行分配，运行时可动态调整",
+                "在运行阶段为源程序中的量进行分配",
+                "都不正确"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "指令 MOV R0，R1 与 ADD #1，R2 的代价分别为(    )。",
+            "choices": [
+                "2，1",
+                "1，2",
+                "2，2",
+                "2，3"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "下列关于编译器的描述中，错误的是(    )。",
+            "choices": [
+                "编译器各阶段之间的中间表示需显式构造。",
+                "编译器可以分为分析部分和综合部分。",
+                "编译器可以分为前端和后端。",
+                "编译器的实现通常包含多遍扫描。"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "下面关于基本块的描述错误的是(    )。",
+            "choices": [
+                "基本块可作为流图的结点",
+                "控制流从基本块的开始进入",
+                "基本块是一个连续的三地址语句序列",
+                "控制流在基本块内有分支的可能"
+            ],
+            "answer": "D"
+        },
+        {
+            "question": "下列文法生成的语言是(    )。 S → Ac∣aB，A → ab，B → bc",
+            "choices": [
+                "{a^nb,b^nc∣n>0}",
+                "{ab,bc}",
+                "{abbc}",
+                "{abc}"
+            ],
+            "answer": "D"
+        },
+        {
+            "question": "下列关于二义文法的描述中，正确的是(    )。",
+            "choices": [
+                "二义文法产生的语言一定是二义的。",
+                "二义文法可以是 LR 文法。",
+                "LL(1)文法一定不是二义文法。",
+                "通过重写文法一定可以消除二义性。"
+            ],
+            "answer": "C"
+        }]
+        let panduan = [{ "question": "类型检查是语义分析的一个部分。", "theanswer": "对" }, { "question": "在分析树中，一个节点的综合属性的值是通过它的子节点的属性值来计算。", "theanswer": "对" }, { "question": "文法的活前缀是它的左句型的前缀。", "theanswer": "错" }, { "question": "归纳变量不能用来实施强度削弱。", "theanswer": "错" }, { "question": "静态单赋值形式（SSA）中所有赋值指令是对不同名字变量赋值。", "theanswer": "对" }, { "question": "术语状态表示将存储单元映射到它所保存值的函数，赋值改变状态。", "theanswer": "对" }, { "question": "在编译系统中，前端部分包括：词法分析、语法分析、语义分析与中间代码生成、与机器无关的代码优化；后端部分包括；与机器有关的代码优化、目标代码生成。", "theanswer": "对" }, { "question": "设∑={0，1}，则0，01，ε，Ø都是∑上的正规式。", "theanswer": "对" }, { "question": "LR（k）分析技术中，R是指构造最右推导的逆。", "theanswer": "对" }, { "question": "通过重写文法一定可以消除二义性。", "theanswer": "错" }, { "question": "词法分析阶段的任务包括把来自编译器各个阶段的错误信息和源程序联系起来。", "theanswer": "对" }, { "question": "表达式a*(b+c)/d-e的后缀表示是abc+*d/e-", "theanswer": "对" }, { "question": "分析器不允许文法二义。", "theanswer": "错" }, { "question": "堆将内存空间分为若干块，根据用户要求分配，不可能碰到无法满足的时候。", "theanswer": "错" }, { "question": "不确定的有限自动机的开始状态不唯一。", "theanswer": "错" }, { "question": "确定自动机的转换函数不一定是全函数。", "theanswer": "对" }, { "question": "自底向上的语法分析方法可能的冲突有移进-移进冲突和移进-规约冲突。", "theanswer": "错" }, { "question": "词法分析的主要任务是扫描输入词法记号流，产生用于语法分析的字符序列。", "theanswer": "错" }, { "question": "使用语法制导翻译方法的编译程序可以同时进行语法分析和语义分析。", "theanswer": "对" }, { "question": "“枚举类型的元素不能重复”属于类型检查相关的内容。", "theanswer": "错" }, { "question": "正规式(a*ba*ba*)*表示字母表{a，b}上“包含偶数个b的所有串”。", "theanswer": "对" }, { "question": "编译器各阶段之间的中间表示需显式构造。", "theanswer": "错" }, { "question": "算符优先分析法不仅能够分析算符优先文法。", "theanswer": "错" }, { "question": "复写传播可能会引起其他的优化机会。", "theanswer": "对" }, { "question": "术语环境表示将名字映射到存储单元的函数，赋值改变环境。", "theanswer": "错" }, { "question": "一个活前缀只有一个有效项目，一个项目可以对多个活前缀有效。", "theanswer": "错" }, { "question": "基本块是一个连续的三地址语句序列，控制流从基本块的开始进入，从末尾离开。", "theanswer": "对" }, { "question": "固有属性属于继承属性，S属性文法包含L属性文法", "theanswer": "错" }, { "question": "两个类型表达式名字等价当且仅当这两个表达式不做名字代换就结构等价。", "theanswer": "对" }, { "question": "语法制导的翻译方案是一种语义规则和产生式相联系的方式。", "theanswer": "对" }, { "question": "分析树的根节点一定标记文法的开始符号。", "theanswer": "对" }, { "question": "不确定的有限自动机的接受状态唯一。", "theanswer": "错" }, { "question": "一个正规语言可能对应多个正规文法。", "theanswer": "错" }, { "question": "如果一个文法G是无二义性的，则它的任何句子最左推导和最右推导对应的语法树必定相同。", "theanswer": "对" }, { "question": "算符优先分析法只能用来分析算术表达式文法。", "theanswer": "错" }, { "question": "固有属性属于综合属性，而S属性文法包含L属性文法。", "theanswer": "错" }, { "question": "符号表可以分为：关键字(保留字)表、层次表、符号表(过程表、变量表、标号表)、常数表等。", "theanswer": "对" }, { "question": "词法分析阶段的任务是扫描源程序的ASCII码序列，拼出每一个单词。并把每个单词的ASCII码序列替换为所谓的机内表示TOKEN形式，这时还检查词法错误。词法分析阶段不依靠语法关系。", "theanswer": "对" }, { "question": "由于C语言的函数允许递归调用，因此，对C语言中的所有变量的单元分配一律采用动态分配方式。", "theanswer": "错" }, { "question": "语法分析时必须先消除文法中的左递归。", "theanswer": "错" }, { "question": "高级语言程序到低级语言程序的转换是结构上的转换。", "theanswer": "错" }, { "question": "使用解释程序翻译程序时，在源程序未执行完的情况下，也可重新执行已执行过的部分。", "theanswer": "错" }, { "question": "正则式 a+∣b+ 与 (a|b)+ 等价", "theanswer": "错" }, { "question": "正则文法、正则式和有穷自动机三者都是描述正则集(正则语言)的有力工具，它们的描述能力是等价的。", "theanswer": "对" }, { "question": "终结符具有继承属性。", "theanswer": "错" }, { "question": "对任何一个编译程序而言，中间代码阶段是必不可少的。", "theanswer": "错" }, { "question": "对L属性定义构造翻译方案时，动作不可以引用该动作右边符号的综合属性。", "theanswer": "对" }]
+    </script>
+    <script>
+        xuanze.sort(function () { return Math.random() - 0.5 })
+        panduan.sort(function () { return Math.random() - 0.5 })
+        let now = 0
+
+        function pd() {
+            document.getElementById('title').innerHTML = '判断题'
+            now = 0
+            nextPD()
+        }
+        document.getElementById('title').onclick = pd
+
+        function nextXZ() {
+            let question = xuanze[now++]
+            if (!question) {
+                alert('选择题完成')
+                pd()
+                return
+            }
+            let questionDom = document.getElementById('question')
+            questionDom.innerHTML = (now) + '. ' + question.question.replace(/\(     \)/g, '(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)')
+            let choicesDom = document.getElementById('choices')
+            choicesDom.innerHTML = ''
+            let correct = question.choices[question.answer.charCodeAt() - 65].replace(/>/g, '&gt;').replace(/</g, '&lt;')
+            question.choices.sort(function () {
+                return Math.random() - 0.5
+            })
+            for (let i = 0; i < question.choices.length; i++) {
+                let choice = document.createElement('div')
+                choice.innerHTML = question.choices[i]
+                choice.onclick = function () {
+                    if (choice.innerHTML == correct) {
+                        choice.classList.add('correct')
+                        let nextDom = document.createElement('div')
+                        nextDom.classList.add('next')
+                        nextDom.innerHTML = '下一题'
+                        nextDom.onclick = function () {
+                            choice.classList.remove('correct')
+                            nextXZ()
+                        }
+                        choicesDom.appendChild(nextDom)
+                    } else {
+                        choice.classList.add('wrong')
+                    }
+                }
+                choicesDom.appendChild(choice)
+            }
+        }
+        nextXZ()
+
+        function nextPD() {
+            // 判断题
+            let question = panduan[now++]
+            if (!question) {
+                alert('完成')
+                return
+            }
+            let questionDom = document.getElementById('question')
+            questionDom.innerHTML = (now) + '. ' + question.question;
+            let choicesDom = document.getElementById('choices')
+            choicesDom.innerHTML = ''
+            // 选项只有对和错
+            choices = ['对', '错']
+            let correct = question.theanswer
+            for (let i = 0; i < choices.length; i++) {
+                let choice = document.createElement('div')
+                choice.innerHTML = choices[i]
+                choice.onclick = function () {
+                    if (choice.innerHTML == correct) {
+                        choice.classList.add('correct')
+                        let nextDom = document.createElement('div')
+                        nextDom.classList.add('next')
+                        nextDom.innerHTML = '下一题'
+                        nextDom.onclick = function () {
+                            choice.classList.remove('correct')
+                            nextPD()
+                        }
+                        choicesDom.appendChild(nextDom)
+                    } else {
+                        choice.classList.add('wrong')
+                    }
+                }
+                choicesDom.appendChild(choice)
+            }
+        }
+    </script>
+</body>
+
+</html>
