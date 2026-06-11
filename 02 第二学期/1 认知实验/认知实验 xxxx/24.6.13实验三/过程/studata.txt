@@ -1,0 +1,4 @@
+1001	Bill	        M	Shenyang
+1002	Kate	F	Beijing
+1003	Anne	F	Shenyang
+1004	John	M	Beijing

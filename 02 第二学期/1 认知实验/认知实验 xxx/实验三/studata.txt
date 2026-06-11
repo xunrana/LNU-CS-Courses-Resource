@@ -1,0 +1,1 @@
+ 1001	bill	M	shenyang	 1002	kate 	F	beijing	 1003	anne	F	shenyang	 1004	john	M	beijing	

@@ -1,0 +1,6 @@
+学生表：
+[姓名已脱敏]	[姓名已脱敏]	性别	地址
+1001	Bill	M	Shenyang
+1002	Kate	F	Beijing
+1003	Anne	F	Shenyang
+1004	John	M	Beijing

@@ -1,0 +1,5 @@
+1001	Bill	   1	  CPrograming  	2	92
+1001	Bill	   2	  DataStructure	2	90
+1001	Bill	   3     OOP	                3	83
+1002	Kate	   1	  CPrograming	2	86
+1002	Kate   2	  Data Structure	2	76
