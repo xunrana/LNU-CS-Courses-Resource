@@ -15,6 +15,7 @@
       repo: 'https://github.com/XUNRANA/LNU-CS-Courses-Resource',
       loadSidebar: true,
       coverpage: true,
+      notFoundPage: true,                            // 直接访问不存在路径时显示 _404.md
       relativePath: true,                            // 让学期 README 间的 ../ 相对链接生效
       alias: { '/.*/_sidebar.md': '/_sidebar.md' },  // 所有页面统一用根侧边栏
       maxLevel: 3,
@@ -26,6 +27,21 @@
         depth: 3
       }
     };
+    // 课程文件夹/二进制文件没有 .md，站内会 404；把这类正文链接改写为新标签打开 GitHub。
+    window.$docsify.plugins = [function (hook) {
+      var REPO = 'https://github.com/xunrana/LNU-CS-Courses-Resource';
+      function gh(p) { var l = p.split('/').pop(); return REPO + '/' + (/\.[a-z0-9]+$/i.test(l) ? 'blob' : 'tree') + '/main/' + encodeURI(p); }
+      hook.doneEach(function () {
+        document.querySelectorAll('.markdown-section a').forEach(function (a) {
+          var h = a.getAttribute('href') || ''; if (h.indexOf('#/') !== 0) return;         // 仅站内路由链接
+          var p = decodeURIComponent(h.slice(2).split('?')[0]).replace(/\/$/, '');
+          if (p === '' || /(^|\/)README$/i.test(p) || /\.md$/i.test(p)) return;             // 站内有效页，保留
+          a.href = gh(p); a.target = '_blank'; a.rel = 'noopener';                          // 其余 → 跳 GitHub
+        });
+        var b = document.getElementById('gh-open');                                         // 404 页按钮指向当前尝试路径
+        if (b) { var hp = decodeURIComponent(location.hash.slice(2).split('?')[0]).replace(/\/$/, ''); b.href = hp ? gh(hp) : REPO; }
+      });
+    }].concat(window.$docsify.plugins || []);
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>      <!-- 全局搜索 -->
