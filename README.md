@@ -4,6 +4,11 @@
 [![GitHub Forks](https://img.shields.io/github/forks/XUNRANA/LNU-CS-Courses-Resource?style=flat-square)](https://github.com/XUNRANA/LNU-CS-Courses-Resource/network/members)
 [![Repo Size](https://img.shields.io/github/repo-size/XUNRANA/LNU-CS-Courses-Resource?style=flat-square)](https://github.com/XUNRANA/LNU-CS-Courses-Resource)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightblue?style=flat-square)](LICENSE)
+[![在线文档](https://img.shields.io/badge/在线文档-Docsify-42b983?style=flat-square)](https://xunrana.github.io/LNU-CS-Courses-Resource/)
+
+> 📖 **本资源库已上线在线文档站，推荐访问 → [xunrana.github.io/LNU-CS-Courses-Resource](https://xunrana.github.io/LNU-CS-Courses-Resource/)**
+>
+> 侧边栏导航 · 全局搜索 · 封面与图片放大，阅读体验更佳。
 
 > **"学长走过的弯路，后来人不必再走。"**
 
