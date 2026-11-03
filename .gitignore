@@ -59,8 +59,12 @@ __pycache__/
 *.pyd
 .ipynb_checkpoints/
 
-# Node.js 依赖
+# Node.js 依赖与前端构建产物
 node_modules/
+.vitepress/dist/
+.vitepress/cache/
+.vitepress/public/manifest.json
+.vitepress/public/logo.svg
 
 # ------------------------------------------
 # 4. 忽略 IDE 及系统专属配置

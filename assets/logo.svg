@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="LNU CS 资源库">
+  <defs>
+    <linearGradient id="lnu-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="0.55" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="url(#lnu-bg)"/>
+  <path d="M22 36c13-5 28-3 42 7v54c-14-10-29-12-42-7z" fill="#ffffff"/>
+  <path d="M106 36c-13-5-28-3-42 7v54c14-10 29-12 42-7z" fill="#ffffff" fill-opacity="0.82"/>
+  <path d="M40 57l-8 9 8 9" fill="none" stroke="#6366f1" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M48 57l8 9-8 9" fill="none" stroke="#6366f1" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M73 58h21M73 68h21M73 78h13" fill="none" stroke="#0891b2" stroke-width="5.5" stroke-linecap="round"/>
+</svg>

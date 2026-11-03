@@ -21,7 +21,10 @@ function Get-RelativePath($path) {
 
 Write-Host '== Markdown code fences =='
 $codeFence = ([string][char]96) * 3
-Get-ChildItem -Recurse -Filter *.md | ForEach-Object {
+$markdownFiles = Get-ChildItem -Recurse -Filter *.md | Where-Object {
+    $_.FullName -notmatch '[\\/](node_modules|\.vitepress|\.git|\.omc|\.claude)[\\/]'
+}
+$markdownFiles | ForEach-Object {
     $text = Get-Content -Raw -Encoding UTF8 -LiteralPath $_.FullName
     $count = ([regex]::Matches($text, [regex]::Escape($codeFence))).Count
     if ($count % 2 -ne 0) {
@@ -31,7 +34,7 @@ Get-ChildItem -Recurse -Filter *.md | ForEach-Object {
 }
 
 Write-Host '== Markdown local links =='
-Get-ChildItem -Recurse -Filter *.md | ForEach-Object {
+$markdownFiles | ForEach-Object {
     $md = $_
     $base = Split-Path $md.FullName -Parent
     $text = Get-Content -Raw -Encoding UTF8 -LiteralPath $md.FullName
@@ -83,6 +86,14 @@ if ($examRoot) {
     }
     if ($examDocs -ne 320) {
         Add-Error ("Expected 320 Word exam files, found {0}" -f $examDocs)
+    }
+    $examReadme = Join-Path $examRoot 'README.md'
+    if (Test-Path -LiteralPath $examReadme) {
+        $examReadmeText = Get-Content -Raw -Encoding UTF8 -LiteralPath $examReadme
+        $linkedExamDocs = ([regex]::Matches($examReadmeText, '^\d+\.\s+\[[^\]]+\]\([^)]+\.docx?\)', [System.Text.RegularExpressions.RegexOptions]::Multiline)).Count
+        if ($linkedExamDocs -ne 320) {
+            Add-Error ("Expected 320 clickable exam links in exam README, found {0}" -f $linkedExamDocs)
+        }
     }
 }
 

@@ -1,31 +1,65 @@
+<div align="center">
+
+<img class="readme-logo" src="assets/logo.svg" width="104" alt="LNU CS 资源库">
+
 # 辽宁大学计算机科学与技术专业课程资源库
 
-[![GitHub Stars](https://img.shields.io/github/stars/XUNRANA/LNU-CS-Courses-Resource?style=flat-square)](https://github.com/XUNRANA/LNU-CS-Courses-Resource/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/XUNRANA/LNU-CS-Courses-Resource?style=flat-square)](https://github.com/XUNRANA/LNU-CS-Courses-Resource/network/members)
-[![Repo Size](https://img.shields.io/github/repo-size/XUNRANA/LNU-CS-Courses-Resource?style=flat-square)](https://github.com/XUNRANA/LNU-CS-Courses-Resource)
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightblue?style=flat-square)](LICENSE)
-[![在线文档](https://img.shields.io/badge/在线文档-Docsify-42b983?style=flat-square)](https://xunrana.github.io/LNU-CS-Courses-Resource/)
+**LNU CS Courses Resource** · 课件 · 笔记 · 实验 · 历年真题 · 备考攻略
 
-> 📖 **本资源库已上线在线文档站，推荐访问 → [xunrana.github.io/LNU-CS-Courses-Resource](https://xunrana.github.io/LNU-CS-Courses-Resource/)**
->
-> 侧边栏导航 · 全局搜索 · 封面与图片放大，阅读体验更佳。
+[![在线文档](https://img.shields.io/badge/在线文档-立即访问-4f46e5?style=for-the-badge&logo=readthedocs&logoColor=white)](https://xunrana.github.io/LNU-CS-Courses-Resource/)
 
-> **"学长走过的弯路，后来人不必再走。"**
+[![GitHub Stars](https://img.shields.io/github/stars/XUNRANA/LNU-CS-Courses-Resource?style=flat-square&logo=github&color=f5b301)](https://github.com/XUNRANA/LNU-CS-Courses-Resource/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/XUNRANA/LNU-CS-Courses-Resource?style=flat-square&logo=github)](https://github.com/XUNRANA/LNU-CS-Courses-Resource/network/members)
+[![Last Commit](https://img.shields.io/github/last-commit/XUNRANA/LNU-CS-Courses-Resource?style=flat-square&color=06b6d4)](https://github.com/XUNRANA/LNU-CS-Courses-Resource/commits/main)
+[![Repo Size](https://img.shields.io/github/repo-size/XUNRANA/LNU-CS-Courses-Resource?style=flat-square&color=6366f1)](https://github.com/XUNRANA/LNU-CS-Courses-Resource)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)](LICENSE)
 
-辽宁大学信息学部计算机科学与技术专业完整课程资源库。覆盖 2022–2026 四年全部 **82 门课程**，收录历年真题 **320 份**、课件笔记实验代码数千份，附逐课备考攻略与样本成绩对比参考。希望这些资料能让你少走弯路，把时间花在真正值得的地方。
+[🚀 快速导航](#-快速导航) &nbsp;·&nbsp; [🎯 重点课程](#-重点课程导览) &nbsp;·&nbsp; [📚 全课程目录](#-全课程总目录) &nbsp;·&nbsp; [📥 下载方式](#-下载方式) &nbsp;·&nbsp; [🤝 参与贡献](#-贡献指南)
+
+*“学长走过的弯路，后来人不必再走。”*
+
+</div>
+
+---
+
+## 👋 关于本仓库
+
+这是一份辽宁大学信息学部 **计算机科学与技术** 专业的本科课程资料库，覆盖 2022–2026 四年全部 **82 门课程**，收录历年真题 **320 份**、课件 / 笔记 / 实验 / 代码等资料 **2700+ 份**，并为每个学期整理了逐课资料盘点、备考攻略与样本成绩对比。希望它能帮你少走弯路，把时间花在真正值得的地方。
+
+| 📚 课程 | 📝 历年真题 | 🗂️ 覆盖范围 | 📦 资料文件 | 🧭 配套内容 |
+|:---:|:---:|:---:|:---:|:---:|
+| **82** 门 | **320** 份 | **8** 学期 + 通识选修 | **2700+** 份 | 备考攻略 · 成绩参考 · 毕业去向 |
+
+> [!NOTE]
+> 本仓库目前由我（[XUNRANA](https://github.com/XUNRANA)）**独立整理与维护**：所有资料均由我个人收集、归档与编排，其中大部分来自我本科四年的课程积累，另有部分资料由高年级学长提供（见 [特别鸣谢](#-特别鸣谢)）。如果它对你有帮助，欢迎点一个 ⭐ Star，这是我持续更新的最大动力。
+
+> [!TIP]
+> **在线文档站**：[xunrana.github.io/LNU-CS-Courses-Resource](https://xunrana.github.io/LNU-CS-Courses-Resource/) — 支持侧边栏学年导航、全局关键词搜索（快捷键 `/`）、深色模式与移动端阅读。
 
 ---
 
 ## 🚀 快速导航
 
+### 按学年浏览
+
+| 🌱 大一 | 🌿 大二 | 🌳 大三 | 🎓 大四 |
+|:---|:---|:---|:---|
+| [第一学期 · 大一秋](01%20第一学期/README.md)<br>10 门 · 22 学分 | [第三学期 · 大二秋](03%20第三学期/README.md)<br>11 门 · 25 学分 | [第五学期 · 大三秋](05%20第五学期/README.md)<br>8 门 · 16 学分 | [第七学期 · 大四秋](07%20第七学期/README.md)<br>2 门 · 5 学分 |
+| [第二学期 · 大一春](02%20第二学期/README.md)<br>14 门 · 35 学分 | [第四学期 · 大二春](04%20第四学期/README.md)<br>13 门 · 26 学分 | [第六学期 · 大三春](06%20第六学期/README.md)<br>9 门 · 14 学分 | [第八学期 · 大四春](08%20第八学期/README.md)<br>2 门 · 18 学分 |
+
+另有 [🎨 通识选修课](09%20通识选修课/README.md)（13 门 · 26 学分）与 [📝 往年课程试卷库](10%20往年课程试卷/README.md)（57 门 · 320 份）。
+
+### 按需求查找
+
 | 我想… | 入口 |
 |:---|:---|
 | 找某门课的课件 / 笔记 / 真题 | ↓ [全课程总目录](#-全课程总目录)，点击课程名直达资料文件夹 |
 | 了解哪些课难、哪些值得重点备考 | ↓ [重点课程导览](#-重点课程导览) |
-| 参考成绩数据与备考策略 | 点击下方学期链接 → 学期 README 含修读同学均分对比与备考攻略 |
+| 参考成绩数据与备考策略 | 点击上方学期链接 → 学期 README 含修读同学均分对比与备考攻略 |
 | 搜索历年考卷 | [往年课程试卷库](10%20往年课程试卷/README.md)（57 门课 · 320 份，年代较早，仅供参考） |
-| 贡献资料 / 纠错 | ↓ [贡献指南](#-贡献指南) |
 | 只想下载某一个文件夹 | ↓ [下载方式](#-下载方式)（推荐 Sparse Checkout，无需克隆整库） |
+| 规划保研 / 考研 / 就业 | ↓ [写给后来者：毕业去向建议](#-写给后来者毕业去向建议) |
+| 贡献资料 / 纠错 | ↓ [贡献指南](#-贡献指南) |
 
 ---
 
@@ -43,12 +77,13 @@ LNU-CS-Courses-Resource/
 ├── 08 第八学期/      #  2 门课 · 大四春 · 毕业设计与实习
 ├── 09 通识选修课/    # 13 门课 · 全学程 · 人文社科自然通识
 ├── 10 往年课程试卷/  # 57 门课 · 320 份试卷 · 跨专业通用
+├── assets/           # 文档站 Logo / 主题样式 / 脚本
 ├── 21版计算机科学与技术专业培养方案.pdf
 ├── 辽宁大学本科生成绩管理方法.pdf
 └── LICENSE
 ```
 
-每个学期目录下均有独立 `README.md`，包含：课程学分/成绩/难度总览表 → 逐课资料盘点与备考攻略 → URP 样本成绩对比分析。
+每个学期目录下均有独立 `README.md`，包含：课程学分 / 成绩 / 难度总览表 → 逐课资料盘点与备考攻略 → URP 样本成绩对比分析。
 
 ---
 
@@ -72,7 +107,8 @@ LNU-CS-Courses-Resource/
 | [编译原理](05%20第五学期/3%20编译原理) | 大三秋 | 语言处理 | ⭐⭐⭐⭐ | 📑💻 |
 | [计算机系统结构](07%20第七学期/3%20计算机系统结构) | 大四秋 | 体系结构 | ⭐⭐⭐⭐ | 📄📑 |
 
-> 💡 **考研备考重点**：数据结构、计算机组成原理、操作系统、计算机网络（408四件套）在仓库中均有历年真题与核心课件。
+> [!TIP]
+> **考研备考重点**：数据结构、计算机组成原理、操作系统、计算机网络（408 四件套）在仓库中均有历年真题与核心课件。
 
 ### 🔥 拉分课预警（修读均分偏低，机会在此）
 
@@ -90,17 +126,19 @@ LNU-CS-Courses-Resource/
 | [计算机网络](06%20第六学期/3%20计算机网络) | 大三春 | **73** | 协议细节、子网计算、流量控制 | 📄📑💻 |
 | [算法设计与分析](04%20第四学期/3%20算法设计与分析) | 大二春 | **73** | 动态规划、分支限界、P/NP理论 | 📑💻 |
 
-> ⚠️ 均分数据来源于对应届次 URP 教务系统，不同年级可能有所浮动，仅供参考。各课程详细对比数据见对应学期 README。
+> [!WARNING]
+> 均分数据来源于对应届次 URP 教务系统，不同年级可能有所浮动，仅供参考。各课程详细对比数据见对应学期 README。
 
 ---
 
 ## 📚 全课程总目录
 
-> 点击课程名进入对应资料文件夹（GitHub 界面直接浏览）。  
-> 📭 表示该文件夹暂无资料（含 `.gitkeep` 占位），欢迎贡献。  
+> 点击学期展开课程清单，点击课程名进入对应资料文件夹（GitHub 界面直接浏览）。📭 表示该文件夹暂无资料（含 `.gitkeep` 占位），欢迎贡献。
+>
 > 图例：📄 历年试卷 ｜ 📑 PPT/课件 ｜ 💻 代码/大作业 ｜ 🔬 实验报告 ｜ 📓 笔记/复习资料 ｜ ✅ 有资料 ｜ ➖ 暂无
 
-### 第一学期（大一秋 · 10 门 · 22 学分）
+<details>
+<summary><b>🍂 第一学期</b> &nbsp;·&nbsp; 大一秋 · 10 门 · 22 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -117,9 +155,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第一学期详细成绩与备考攻略](01%20第一学期/README.md)
 
----
+</details>
 
-### 第二学期（大一春 · 14 门 · 35 学分）
+<details>
+<summary><b>🌸 第二学期</b> &nbsp;·&nbsp; 大一春 · 14 门 · 35 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -140,9 +179,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第二学期详细成绩与备考攻略](02%20第二学期/README.md)
 
----
+</details>
 
-### 第三学期（大二秋 · 11 门 · 25 学分）
+<details>
+<summary><b>🍁 第三学期</b> &nbsp;·&nbsp; 大二秋 · 11 门 · 25 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -160,9 +200,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第三学期详细成绩与备考攻略](03%20第三学期/README.md)
 
----
+</details>
 
-### 第四学期（大二春 · 13 门 · 26 学分）
+<details>
+<summary><b>🌷 第四学期</b> &nbsp;·&nbsp; 大二春 · 13 门 · 26 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -182,9 +223,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第四学期详细成绩与备考攻略](04%20第四学期/README.md)
 
----
+</details>
 
-### 第五学期（大三秋 · 8 门 · 16 学分）
+<details>
+<summary><b>🍂 第五学期</b> &nbsp;·&nbsp; 大三秋 · 8 门 · 16 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -199,9 +241,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第五学期详细成绩与备考攻略](05%20第五学期/README.md)
 
----
+</details>
 
-### 第六学期（大三春 · 9 门 · 14 学分）
+<details>
+<summary><b>🌼 第六学期</b> &nbsp;·&nbsp; 大三春 · 9 门 · 14 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -217,9 +260,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第六学期详细成绩与备考攻略](06%20第六学期/README.md)
 
----
+</details>
 
-### 第七学期（大四秋 · 2 门 · 5 学分）
+<details>
+<summary><b>🍂 第七学期</b> &nbsp;·&nbsp; 大四秋 · 2 门 · 5 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -228,9 +272,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第七学期详细成绩与备考攻略](07%20第七学期/README.md)
 
----
+</details>
 
-### 第八学期（大四春 · 2 门 · 18 学分）
+<details>
+<summary><b>🎓 第八学期</b> &nbsp;·&nbsp; 大四春 · 2 门 · 18 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -239,9 +284,10 @@ LNU-CS-Courses-Resource/
 
 → [查看第八学期详细成绩与备考攻略](08%20第八学期/README.md)
 
----
+</details>
 
-### 通识选修课（全学程 · 13 门 · 26 学分）
+<details>
+<summary><b>🎨 通识选修课</b> &nbsp;·&nbsp; 全学程 · 13 门 · 26 学分</summary>
 
 | 学分 | 课程 | 主要内容 | 📄 | 📑 | 💻 | 🔬 | 📓 |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|
@@ -261,34 +307,29 @@ LNU-CS-Courses-Resource/
 
 → [查看通识选修课详细成绩与备考攻略](09%20通识选修课/README.md)
 
----
-
-## 📈 绩点参考
-
-### 绩点计算公式
-
-**百分制**：`绩点 = 4 − 3 × (100 − 分数)² ÷ 1600`
-
-**等级制**：优秀（90~100）→ 4.00 ｜ 良好（80~89）→ 3.00 ｜ 中等（70~79）→ 2.00 ｜ 及格（60~69）→ 1.00
+</details>
 
 ---
 
-## 📝 往年试卷库（第 10 目录）
+## 📝 往年试卷库
 
 `10 往年课程试卷` 目录收录 57 门课、320 份 Word 试卷，主体为 **12级～17级、2011–2018 学年** 试卷。少量文件保留原始命名中的异常年份或跨年字段，检索时建议优先看课程名、教师名与文档类型；题型与考纲可能已有变化，仅供备考参考。命名格式：`课程名 考试学年学期 年级 专业简称.doc`。
 
-详细索引见 **[10 往年课程试卷/README.md](10%20往年课程试卷/README.md)**。
+详细索引见 → [10 往年课程试卷/README.md](10%20往年课程试卷/README.md)
 
 ---
 
-## 📖 官方参考文档
+## 📈 绩点与官方文档
 
-仓库根目录存放两份官方教务文档，修读与备考时可优先查阅：
+**绩点计算公式**
 
-1. **[21版计算机科学与技术专业培养方案.pdf](21版计算机科学与技术专业培养方案.pdf)**
-   - 培养目标、毕业要求、修读课程流向图及详细学分对照表。
-2. **[辽宁大学本科生成绩管理方法.pdf](辽宁大学本科生成绩管理方法.pdf)**
-   - 学分转换、补考重修、绩点折算及毕业成绩审核相关教务规定。
+- **百分制**：`绩点 = 4 − 3 × (100 − 分数)² ÷ 1600`
+- **等级制**：优秀（90~100）→ 4.00 ｜ 良好（80~89）→ 3.00 ｜ 中等（70~79）→ 2.00 ｜ 及格（60~69）→ 1.00
+
+**官方参考文档**（仓库根目录，修读与备考时可优先查阅）
+
+1. **[21版计算机科学与技术专业培养方案.pdf](21版计算机科学与技术专业培养方案.pdf)** — 培养目标、毕业要求、修读课程流向图及详细学分对照表。
+2. **[辽宁大学本科生成绩管理方法.pdf](辽宁大学本科生成绩管理方法.pdf)** — 学分转换、补考重修、绩点折算及毕业成绩审核相关教务规定。
 
 ---
 
@@ -322,7 +363,7 @@ GitHub 仓库页面 **Code → Download ZIP** 一键打包下载，操作最简�
 
 ## 🤝 贡献指南
 
-欢迎贡献以下类型的资料：
+仓库目前由我一人维护，难免有遗漏和错误。如果你手里有合适的资料，或发现了错链、错字、过时信息，非常欢迎补充和指正：
 
 - 课程笔记、学习总结、思维导图
 - 往年试卷、标准答案、历年真题
@@ -330,9 +371,20 @@ GitHub 仓库页面 **Code → Download ZIP** 一键打包下载，操作最简�
 - 课程选课建议、备考经验分享
 - 补充暂无资料（📭）的空壳课程文件夹
 
-### 优先补充清单
+### 贡献方式
 
-以下课程目录目前仅有 `.gitkeep` 占位，欢迎优先补充资料：
+1. **Pull Request**（推荐）：Fork 本仓库，上传到对应课程文件夹，提交 PR
+2. **Issue**：新建 Issue，上传文件或描述问题，并说明所属课程和学期
+3. **邮件**：发送至 xunrana@163.com，注明课程名和学期
+
+提交前建议先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，并运行仓库审计脚本：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/audit.ps1
+```
+
+<details>
+<summary><b>📋 优先补充清单</b>（以下课程目录目前仅有 <code>.gitkeep</code> 占位）</summary>
 
 | 学期 | 待补课程 |
 | :--- | :--- |
@@ -345,7 +397,10 @@ GitHub 仓库页面 **Code → Download ZIP** 一键打包下载，操作最简�
 | 第八学期 | `4 实习实践` |
 | 通识选修课 | `2 改革开放史` |
 
-### 禁止上传
+</details>
+
+<details>
+<summary><b>⛔ 禁止上传</b></summary>
 
 - ⛔ 未获授权的付费教材、电子书、教师课件或其他版权受保护资料
 - ⛔ 当学期尚未完成考试的试卷（避免学术不端风险）
@@ -354,26 +409,17 @@ GitHub 仓库页面 **Code → Download ZIP** 一键打包下载，操作最简�
 - ⛔ 新增超过 100 MB 的单文件（GitHub 硬限制；大文件请存云盘或 Release，并在 README 留链接）
 - ⚠️ 新增超过 50 MB 的单文件会触发审计警告；如确有保留必要，请说明来源、授权与压缩/迁移计划，优先存放到云盘或 Release
 
-### 贡献方式
+</details>
 
-1. **Pull Request**（推荐）：Fork 本仓库，上传到对应课程文件夹，提交 PR
-2. **Issue 附件**：新建 Issue，上传文件并说明所属课程和学期
-3. **邮件**：发送至 xunrana@163.com，注明课程名和学期
+<details>
+<summary><b>🏷️ 文件命名与资料状态标注</b></summary>
 
-提交前建议先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，并运行仓库审计脚本：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
-
-### 文件命名建议
+**文件命名建议**
 
 - 课件 / 笔记：`课程名_类型_说明.扩展名`，如 `数据结构_课件_第3章树.pdf`
 - 试卷（严格格式）：`课程名 学年学期 年级 专业 附加信息.doc`，如 `数据库原理 2023-2024-1 22级 计科 试卷A.doc`
 
-### 资料状态标注建议
-
-新增资料建议在课程 README 或提交说明中标注来源状态：
+**资料状态标注**：新增资料建议在课程 README 或提交说明中标注来源状态
 
 | 状态 | 说明 |
 | :--- | :--- |
@@ -382,52 +428,7 @@ powershell -ExecutionPolicy Bypass -File scripts/audit.ps1
 | `授权分享` | 已获得作者或授课教师许可分享的资料 |
 | `需自查版权` | 来源不明或疑似教材、电子书、教师课件，建议仅保留书目信息、学习建议或公开购买/获取渠道 |
 
----
-
-## 📋 免责声明
-
-- 本仓库由学生个人维护，与辽宁大学官方无任何关联
-- 仓库内资料仅供个人学习参考，不对任何资料的准确性、完整性或适用性做出承诺
-- 贡献者提交资料时应确认其拥有分享权利或已获得授权；资料中第三方内容的版权仍归原作者或权利人所有
-- 如发现版权侵犯，请通过 Issue 或邮件（xunrana@163.com）立即通知，将在 48 小时内处理
-
----
-
-## 📜 许可证
-
-本仓库采用 **[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](LICENSE)** 许可证。
-
-- **允许**：分享、转载、改编，用于**非商业**学习目的
-- **要求**：署名原作者，以相同许可证分发衍生作品
-- **禁止**：任何形式的商业使用
-
-其他贡献者上传的资料，版权归原作者所有。
-
----
-
-## 🙏 特别鸣谢
-
-仓库中的许多资料来自学长学姐的无私分享，在此致以最诚挚的感谢：
-
-**rax、lpl、hyt、zjy** 等众多学长学姐——感谢你们当年留下的课件、笔记、实验报告和历年真题，让后来的同学少走了很多弯路。
-
-> 如果你也想将自己积累的资料回馈给学弟学妹，欢迎通过 PR 或邮件（xunrana@163.com）贡献！
-
----
-
-## 🔗 友情链接
-
-本仓库受以下高校同类开源课程资源仓库启发，推荐一并查阅：
-
-| 仓库 | 高校 | 特色 |
-|:---|:---:|:---|
-| [libpku](https://github.com/lib-pku/libpku) | 北京大学 | Star 数最多，生态最完善 |
-| [zju-icicles](https://github.com/QSCTech/zju-icicles) | 浙江大学 | 最早的中文课程资源仓库之一 |
-| [REKCARC-TSC-UHT](https://github.com/PKUanonym/REKCARC-TSC-UHT) | 清华大学 | 计算机系课程攻略，含 A4 速查表 |
-| [SJTU-Courses](https://github.com/CoolPhilChen/SJTU-Courses) | 上海交通大学 | 徽章最完整，视觉最专业 |
-| [USTC-Course](https://github.com/USTC-Resource/USTC-Course) | 中国科学技术大学 | 课程结构最规范，有配套网站 |
-| [fudan-coursera](https://github.com/openFudan/fudan-coursera) | 复旦大学 | 按教育阶段分类，直观清晰 |
-| [NJUCS-Course-Material](https://github.com/zhangyikaii/NJUCS-Course-Material) | 南京大学 | 计算机系专项，禁止清单最明确 |
+</details>
 
 ---
 
@@ -437,15 +438,16 @@ powershell -ExecutionPolicy Bypass -File scripts/audit.ps1
 
 ### 🎓 保研
 - **门槛**：前六学期综合成绩排名在本专业 **前 14%**
-- **成绩构成**：加权平均绩点占 **90%**，加分项占 **5%**，思想品德占 **5%**
+- **成绩构成**：加权平均绩点 **90%** ＋ 加分项 **5%** ＋ 思想品德 **5%**
 - **核心策略**：绩点仍是最主要因素。
   重视等级制课程（优秀 = 4.0）和专业核心课，一门高难度课拉开的绩点差距足以改变整个排名。
 - **加分渠道**：
-  - 高水平期刊 / 会议论文（一作）**+0.5～1 分**
+  - 高水平期刊 / 会议论文（一作） **+0.5～1 分**
   - [全国大学生竞赛目录内竞赛（《2023全国普通高校大学生竞赛分析报告》竞赛目录.pdf）](https://cmsfiles.zhongkefu.com.cn/caheedu/gdjy/file/20230323/1679556185276507.pdf)，国家级一等奖 **+0.5～1 分**
   - 英语六级通过 **+1 分**
 
-> 注：以上保研比例、加分项目和分值来自当届经验整理，不构成官方承诺；每年以学院最新推免细则和教务通知为准。
+> [!NOTE]
+> 以上保研比例、加分项目和分值来自当届经验整理，不构成官方承诺；每年以学院最新推免细则和教务通知为准。
 
 ### 📝 考研
 - 目标是 **计算机统考 408**（数据结构、操作系统、计组、计网）
@@ -472,32 +474,68 @@ powershell -ExecutionPolicy Bypass -File scripts/audit.ps1
 
 > 对算法竞赛感兴趣的同学，强烈推荐加入 **辽宁大学信息学部科创中心**！
 
-在这里，你将有机会参加：
-
-**蓝桥杯 / 天梯赛 / 码蹄杯 / 百度之星 / ICPC / CCPC**
-
-省赛 → 全国邀请赛 → 分站赛 → 亚洲区域赛 → 世界总决赛
-
-这里汇聚了一批十分优秀的学长学姐。
-
-最终考取研究生、进入大厂工作的大有人在！
-
-**ICPC 亚洲区域赛铜奖 / 银奖**，将是一份极为亮眼的个人履历。
-
-目前仍有许多大厂对 ICPC 等高水平算法竞赛获奖选手给予极大青睐！
+- **赛事**：蓝桥杯 / 天梯赛 / 码蹄杯 / 百度之星 / ICPC / CCPC
+- **晋级路线**：省赛 → 全国邀请赛 → 分站赛 → 亚洲区域赛 → 世界总决赛
+- **氛围**：这里汇聚了一批十分优秀的学长学姐，最终考取研究生、进入大厂工作的大有人在
+- **价值**：**ICPC 亚洲区域赛银奖 / 金奖** 是一份极为亮眼的个人履历，许多大厂对高水平算法竞赛获奖选手青睐有加
 
 **期望辽宁大学早日夺得亚洲区域赛首枚金奖！** 🏅
 
 ---
 
-## 🌟 写在最后
+## 🙏 特别鸣谢
 
-> 感谢每一位为这个仓库添砖加瓦的同学，也感谢你能看到这里。
->
-> 愿每一位辽大信院计科人，都能找到属于自己的方向，走出属于自己的路。
->
-> **祝大家前程似锦，未来可期！** 🎉
+在整理本仓库的过程中，部分早期资料来自高年级学长的无私分享，在此致以最诚挚的感谢：
+
+**rax、lpl、hyt、zjy** 等学长——感谢你们当年留下的课件、笔记、实验报告和历年真题，让我和后来的学弟学妹少走了很多弯路。
+
+> 如果你也愿意把自己积累的资料分享给学弟学妹，欢迎通过 PR 或邮件（xunrana@163.com）联系我！
 
 ---
 
-**最后更新**：2026 年 6 月 &nbsp;|&nbsp; **维护者**：[XUNRANA](https://github.com/XUNRANA) &nbsp;|&nbsp; **联系**：xunrana@163.com
+## 🔗 友情链接
+
+本仓库受以下高校同类开源课程资源仓库启发，推荐一并查阅：
+
+| 仓库 | 高校 | 特色 |
+|:---|:---:|:---|
+| [libpku](https://github.com/lib-pku/libpku) | 北京大学 | Star 数最多，生态最完善 |
+| [zju-icicles](https://github.com/QSCTech/zju-icicles) | 浙江大学 | 最早的中文课程资源仓库之一 |
+| [REKCARC-TSC-UHT](https://github.com/PKUanonym/REKCARC-TSC-UHT) | 清华大学 | 计算机系课程攻略，含 A4 速查表 |
+| [SJTU-Courses](https://github.com/CoolPhilChen/SJTU-Courses) | 上海交通大学 | 徽章最完整，视觉最专业 |
+| [USTC-Course](https://github.com/USTC-Resource/USTC-Course) | 中国科学技术大学 | 课程结构最规范，有配套网站 |
+| [fudan-coursera](https://github.com/openFudan/fudan-coursera) | 复旦大学 | 按教育阶段分类，直观清晰 |
+| [NJUCS-Course-Material](https://github.com/zhangyikaii/NJUCS-Course-Material) | 南京大学 | 计算机系专项，禁止清单最明确 |
+
+---
+
+## 📋 免责声明
+
+- 本仓库由学生个人整理与维护，与辽宁大学官方无任何关联
+- 仓库内资料仅供个人学习参考，不对任何资料的准确性、完整性或适用性做出承诺
+- 提交资料时应确认拥有分享权利或已获得授权；资料中第三方内容的版权仍归原作者或权利人所有
+- 如发现版权侵犯，请通过 Issue 或邮件（xunrana@163.com）立即通知，将在 48 小时内处理
+
+## 📜 许可证
+
+本仓库采用 **[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](LICENSE)** 许可证。
+
+- **允许**：分享、转载、改编，用于**非商业**学习目的
+- **要求**：署名原作者，以相同许可证分发衍生作品
+- **禁止**：任何形式的商业使用
+
+仓库中来自他人分享的资料，版权归原作者所有。
+
+---
+
+<div align="center">
+
+**愿每一位辽大计科人，都能找到属于自己的方向，走出属于自己的路。**
+
+**祝大家前程似锦，未来可期！** 🎉
+
+如果这个仓库帮到了你，请给它一个 ⭐ —— 这是对我最好的鼓励。
+
+<sub>最后更新：2026 年 11 月 &nbsp;|&nbsp; 维护者：<a href="https://github.com/XUNRANA">XUNRANA</a> &nbsp;|&nbsp; 联系：xunrana@163.com</sub>
+
+</div>

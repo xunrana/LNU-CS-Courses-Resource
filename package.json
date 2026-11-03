@@ -1,0 +1,22 @@
+{
+  "name": "lnu-cs-courses-resource",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "辽宁大学计算机科学与技术专业课程资源库在线文档站（VitePress SSG）",
+  "scripts": {
+    "predev": "node scripts/generate-manifest.mjs",
+    "docs:dev": "npm run predev && vitepress dev",
+    "prebuild": "node scripts/generate-manifest.mjs",
+    "docs:build": "npm run prebuild && vitepress build",
+    "docs:preview": "vitepress preview",
+    "manifest": "node scripts/generate-manifest.mjs",
+    "audit": "powershell -ExecutionPolicy Bypass -File scripts/audit.ps1"
+  },
+  "devDependencies": {
+    "markdown-it-mathjax3": "^4.3.2",
+    "mathjax-full": "^3.2.2",
+    "vitepress": "^1.6.3",
+    "vue": "^3.5.13"
+  }
+}
